@@ -1,10 +1,19 @@
 {
-  "name": "project-skeleton",
+  "name": "project-camelshump",
+  "description": "This project will help Middlebury students know when/where to their laundry based on optimal availability and can help Facilities with maintenance to optimize laundry room locations and fix broken machines quicker.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/project-camelshump.git"
+  },
   "version": "0.1.0",
   "private": true,
   "contributors": [
-    "Team Member 1 <member1@middlebury.edu>",
-    "Team Member 2 <member2@middlebury.edu>"
+    "Hedavam Solano <hsolano@middlebury.edu>",
+    "Josefina",
+    "Robsan",
+    "Yikai",
+    "Hinda",
+    "Finn"
   ],
   "scripts": {
     "dev": "next dev",

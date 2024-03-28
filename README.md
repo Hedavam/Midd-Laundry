@@ -1,6 +1,16 @@
-# Project Skeleton
+# Laundry Availability
 
-TODO: Implement CI badges, provide a link to the deployed version of your application, and provide a brief description of the application functionality.
+## Description
+
+It can be frustrating having to walk over to do laundry (especially on cold/rainy days) and not finding an available/working machine. This app aims to address this issue by reporting availability, thus, helping students plan when/where to do their laundry. Moreover, Facilites may benefit as they could re-arrange the locations/amount of machines based on usage and more quickly repair machines that are reported as broken.
+
+## Workflow Badge
+
+![workflow status](https://github.com/csci312-s24/project-camelshump/actions/workflows/node.js.yml/badge.svg)
+
+## Deployed Version
+
+https://camelshump.csci312.dev/
 
 ## Creation
 
