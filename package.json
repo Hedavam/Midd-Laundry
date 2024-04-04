@@ -12,8 +12,9 @@
     "Josefina",
     "Robsan",
     "Yikai",
-    "Hinda",
-    "Finn"
+    "Hinda Ibraahim <hibraahim@middlebury.edu>",
+    "Finn",
+    "Vikram Vasan <vvasan@middlebury.edu>"
   ],
   "scripts": {
     "dev": "next dev",
