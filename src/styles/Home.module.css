@@ -7,27 +7,27 @@
 }
 
 .machine {
-  width: 100px; /* Adjust width as needed */
-  height: 100px; /* Adjust height as needed */
+  width: 100px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px solid black; /* Add border for visualization */
-  margin-right: 2rem; /* Adjust margin as needed */
-  margin-bottom: 2rem; /* Adjust margin as needed */
+  border: 2px solid black;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
   cursor: pointer;
 }
 
 .machine.inUse {
-  background-color: #fdfd96; /* Add background color for in-use machines */
+  background-color: #fdfd96;
 }
 
 .machine.available {
-  background-color: #77dd77; /* Add background color for available machines */
+  background-color: #77dd77;
 }
 
 .machine.outOfOrder {
-  background-color: #ff6961; /* Add background color for out-of-order machines */
+  background-color: #ff6961;
 }
 
 .machines {
