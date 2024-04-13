@@ -9,6 +9,7 @@ export default function UserForm({
   machineType,
   onClose,
   onSubmit,
+  outOfOrder,
 }) {
   const [loadInfo, setLoadInfo] = useState({
     machineId,
@@ -17,13 +18,15 @@ export default function UserForm({
     phoneNumber: "",
     email: "",
     duration: "",
+    outOfOrder,
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+    const newValue = type === "checkbox" ? checked : value;
     setLoadInfo((prevLoadInfo) => ({
       ...prevLoadInfo,
-      [name]: value,
+      [name]: newValue,
     }));
   };
 
@@ -72,6 +75,15 @@ export default function UserForm({
             onChange={handleChange}
           />
         </label>
+        <label>
+          Out of Order:
+          <input
+            type="checkbox"
+            name="outOfOrder"
+            checked={loadInfo.outOfOrder}
+            onChange={handleChange}
+          />
+        </label>
       </form>
       <UserFormButtonBar
         loadInfo={loadInfo}
@@ -88,4 +100,5 @@ UserForm.propTypes = {
   machineType: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  outOfOrder: PropTypes.bool.isRequired,
 };

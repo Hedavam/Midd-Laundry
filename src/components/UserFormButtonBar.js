@@ -13,22 +13,12 @@ export default function UserFormButtonBar({ loadInfo, onCancel, onSubmit }) {
     }
   };
 
-  /* Only want to enable continue when we have (one of either phone # OR email) AND have machineID AND have room AND have duration */
-  const disableContinue =
-    !(loadInfo.phoneNumber || loadInfo.email) ||
-    !loadInfo.machineId ||
-    !loadInfo.duration;
-
   return (
     <div className={styles.userFormButtonBar}>
       <button type="button" onClick={() => handleClick("cancel")}>
         Cancel
       </button>
-      <button
-        type="button"
-        disabled={disableContinue}
-        onClick={() => handleClick("continue")}
-      >
+      <button type="button" onClick={() => handleClick("continue")}>
         Submit
       </button>
     </div>

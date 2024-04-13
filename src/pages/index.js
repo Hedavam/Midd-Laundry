@@ -7,14 +7,14 @@ import Machine from "../components/Machine";
 
 export default function Home() {
   const [machines, setMachines] = useState([
-    { id: 1, num: 1, type: "washer", inUse: false },
-    { id: 2, num: 2, type: "washer", inUse: false },
-    { id: 3, num: 3, type: "washer", inUse: false },
-    { id: 4, num: 4, type: "washer", inUse: false },
-    { id: 5, num: 1, type: "dryer", inUse: false },
-    { id: 6, num: 2, type: "dryer", inUse: false },
-    { id: 7, num: 3, type: "dryer", inUse: false },
-    { id: 8, num: 4, type: "dryer", inUse: false },
+    { id: 1, num: 1, type: "washer", inUse: false, outOfOrder: false },
+    { id: 2, num: 2, type: "washer", inUse: false, outOfOrder: false },
+    { id: 3, num: 3, type: "washer", inUse: false, outOfOrder: false },
+    { id: 4, num: 4, type: "washer", inUse: false, outOfOrder: false },
+    { id: 5, num: 1, type: "dryer", inUse: false, outOfOrder: false },
+    { id: 6, num: 2, type: "dryer", inUse: false, outOfOrder: false },
+    { id: 7, num: 3, type: "dryer", inUse: false, outOfOrder: false },
+    { id: 8, num: 4, type: "dryer", inUse: false, outOfOrder: false },
   ]);
 
   const [selectedMachine, setSelectedMachine] = useState(null);
@@ -40,7 +40,8 @@ export default function Home() {
     // Toggle the inUse state of the selected machine
     updatedMachines[selectedMachineIndex] = {
       ...updatedMachines[selectedMachineIndex],
-      inUse: !updatedMachines[selectedMachineIndex].inUse,
+      inUse: !!loadInfo.duration,
+      outOfOrder: loadInfo.outOfOrder,
     };
 
     // Update the machines state with the updated machines array
@@ -72,6 +73,7 @@ export default function Home() {
                   num={washer.num}
                   type={washer.type}
                   inUse={washer.inUse}
+                  outOfOrder={washer.outOfOrder}
                   onClick={toggleMachine}
                 />
               ))}
@@ -89,6 +91,7 @@ export default function Home() {
                   num={dryer.num}
                   type={dryer.type}
                   inUse={dryer.inUse}
+                  outOfOrder={dryer.outOfOrder}
                   onClick={toggleMachine}
                 />
               ))}
@@ -104,6 +107,10 @@ export default function Home() {
               }
               machineNum={
                 machines.find((machine) => machine.id === selectedMachine)?.num
+              }
+              outOfOrder={
+                machines.find((machine) => machine.id === selectedMachine)
+                  ?.outOfOrder
               }
               onClose={handleCloseForm}
               onSubmit={handleFormSubmit}

@@ -13,8 +13,3 @@
   color: white;
   cursor: pointer;
 }
-
-.userFormButtonBar button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
