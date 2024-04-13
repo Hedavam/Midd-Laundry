@@ -1,0 +1,28 @@
+.userFormContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 2px solid gray;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.userFormContainer form {
+  display: flex;
+  flex-direction: column;
+}
+
+.userFormContainer label {
+  margin-bottom: 10px;
+}
+
+.userFormContainer input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}

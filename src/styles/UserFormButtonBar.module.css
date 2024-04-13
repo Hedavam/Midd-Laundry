@@ -1,0 +1,20 @@
+.userFormButtonBar {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.userFormButtonBar button {
+  margin: 0 10px; /* Add some margin between buttons */
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.userFormButtonBar button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

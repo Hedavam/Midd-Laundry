@@ -1,97 +1,91 @@
-/*
-  UserForm.js
-
-  The `UserForm` component is a form allowing users to log their loads.
-
-  The bar has two states determined by `allowEdit`. If false, only an "Add" button is shown.
-  If true, then "Add" and "Edit" are shown. 
-
-  When a button is clicked, `handleClick` is called with "add", or "edit".
-
-  props:
-    allowContinue - a Boolean indicating if our expectations of what's in userform field's is met
-*/
-import PropTypes from "prop-types";
 import { useState } from "react";
+import PropTypes from "prop-types";
+import styles from "@/styles/UserForm.module.css";
 import UserFormButtonBar from "./UserFormButtonBar";
 
+export default function UserForm({
+  machineId,
+  machineNum,
+  machineType,
+  onClose,
+  onSubmit,
+}) {
+  const [loadInfo, setLoadInfo] = useState({
+    machineId,
+    machineNum,
+    machineType,
+    phoneNumber: "",
+    email: "",
+    duration: "",
+  });
 
-export default function UserForm({ /* setMachineStatus */ room, machineId }) {
-  // machine ppl will send down prop. to setMachineStatus (required); room, id (optional - initialized as empty string or actual values)
-  /* Define UserForm for input */
-  const loadInfoObj = {
-    phoneNumber: null,
-    email: null,
-    machineId, // will use value from prop
-    duration: null,
-    room, // will use value from prop
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setLoadInfo((prevLoadInfo) => ({
+      ...prevLoadInfo,
+      [name]: value,
+    }));
   };
 
-  const [loadInfo, setloadInfo] = useState(loadInfoObj);
-
-  /* Func. to determine enableContinue */
-
-  /* Make the form */
+  const handleSubmit = () => {
+    onSubmit(loadInfo); // Submit load info to the parent component
+  };
 
   return (
-    <>
-      <form>
-        <label> Phone Number: </label>
-        <input
-          type="number"
-          value={loadInfo.phoneNumber}
-          onChange={(event) =>
-            setloadInfo({ ...loadInfo, phoneNumber: event.target.value })
-          }
-         />
-
-        <label> Email </label>
-        <input
-          type="email"
-          value={loadInfo.email}
-          onChange={(event) =>
-            setloadInfo({ ...loadInfo, email: event.target.value })
-          }
-         />
-
-        <label> Machine-Id (Unique - 6 Digits): </label>
-        <input
-          type="text"
-          value={loadInfo.machineId}
-          onChange={(event) =>
-            setloadInfo({ ...loadInfo, machineId: event.target.value })
-          }
-         />
-
-        <label> Duration (minutes): </label>
-        <input
-          type="number"
-          onChange={(event) =>
-            setloadInfo({ ...loadInfo, duration: event.target.value })
-          }
-         />
-
-        <label> Room: </label>
-        <input
-          type="text"
-          value={loadInfo.room}
-          onChange={(event) =>
-            setloadInfo({ ...loadInfo, room: event.target.value })
-          }
-         />
+    <div className={styles.userFormContainer}>
+      <form onSubmit={handleSubmit}>
+        {/* Input fields for load information */}
+        <label>
+          Machine:
+          <input
+            type="text"
+            name="machineID"
+            value={`${loadInfo.machineType.charAt(0).toUpperCase()}${loadInfo.machineType.slice(1)} ${loadInfo.machineNum}`}
+            onChange={handleChange}
+            readOnly
+          />
+        </label>
+        <label>
+          Phone Number:
+          <input
+            type="text"
+            name="phoneNumber"
+            value={loadInfo.phoneNumber}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Email:
+          <input
+            type="email"
+            name="email"
+            value={loadInfo.email}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Duration (minutes):
+          <input
+            type="number"
+            name="duration"
+            value={loadInfo.duration}
+            onChange={handleChange}
+          />
+        </label>
       </form>
-
-      <UserFormButtonBar loadInfo={loadInfo} />
-    </>
+      <UserFormButtonBar
+        loadInfo={loadInfo}
+        onCancel={onClose}
+        onSubmit={handleSubmit}
+      />
+    </div>
   );
-
-  /* Handle logic to determine if continue button should be enabled */
 }
 
-/* For later: pass down setMachineStatus (required), loadInfo */
-
 UserForm.propTypes = {
-  // setMachineStatus: PropTypes.func.isRequired,
-  room: PropTypes.string.isRequired,
-  machineId: PropTypes.string.isRequired,
+  machineId: PropTypes.number.isRequired,
+  machineNum: PropTypes.number.isRequired,
+  machineType: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };

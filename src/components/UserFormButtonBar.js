@@ -1,26 +1,15 @@
-/*
-  ButtonBar.js
-
-  The `ButtonBar` component is a simple collection of buttons.
-
-  Cancel -> route back to main page
-  Continue -> route to confirmation page; only want this to display if certain fields of userform are filled out 
-    (will use prop from userform to determine this)
-
-  props: UserFormShape
-*/
-
+import PropTypes from "prop-types";
+import styles from "@/styles/UserFormButtonBar.module.css";
 import UserFormShape from "./UserFormShape";
 
-export default function UserFormButtonBar({ loadInfo }) {
+export default function UserFormButtonBar({ loadInfo, onCancel, onSubmit }) {
   // investigate why this isn't being passed down
 
-  const handleClick = (e) => {
-    if (e === "cancel") {
-      // router.push("/edit"); main page
-    }
-    if (e === "continue") {
-      // router.push(`/articles/${currentArticle?.id}/edit`); confirmation page
+  const handleClick = (action) => {
+    if (action === "cancel") {
+      onCancel();
+    } else if (action === "continue") {
+      onSubmit(loadInfo);
     }
   };
 
@@ -28,11 +17,10 @@ export default function UserFormButtonBar({ loadInfo }) {
   const disableContinue =
     !(loadInfo.phoneNumber || loadInfo.email) ||
     !loadInfo.machineId ||
-    !loadInfo.room ||
     !loadInfo.duration;
 
   return (
-    <div>
+    <div className={styles.userFormButtonBar}>
       <button type="button" onClick={() => handleClick("cancel")}>
         Cancel
       </button>
@@ -41,7 +29,7 @@ export default function UserFormButtonBar({ loadInfo }) {
         disabled={disableContinue}
         onClick={() => handleClick("continue")}
       >
-        Continue
+        Submit
       </button>
     </div>
   );
@@ -49,4 +37,6 @@ export default function UserFormButtonBar({ loadInfo }) {
 
 UserFormButtonBar.propTypes = {
   loadInfo: UserFormShape,
+  onCancel: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
