@@ -1,3 +1,4 @@
+import UserForm from "@/components/UserForm";
 import Head from "next/head";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
@@ -67,9 +68,16 @@ export default function Home() {
               ))}
           </div>
         </div>
+        <div>
+          <UserForm
+            setMachineStatus="active"
+            room="forest"
+            machineId={14}
+          />
+        </div
       </main>
     </>
-  );
+);
 }
 
 Home.propTypes = {
