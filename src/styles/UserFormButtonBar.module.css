@@ -13,3 +13,7 @@
   color: white;
   cursor: pointer;
 }
+
+.userFormButtonBar button:hover {
+  background-color: #0056b3;
+}
