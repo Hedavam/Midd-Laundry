@@ -3,8 +3,6 @@ import styles from "@/styles/UserFormButtonBar.module.css";
 import UserFormShape from "./UserFormShape";
 
 export default function UserFormButtonBar({ loadInfo, onCancel, onSubmit }) {
-  // investigate why this isn't being passed down
-
   const handleClick = (action) => {
     if (action === "cancel") {
       onCancel();
