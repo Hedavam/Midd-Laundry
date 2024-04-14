@@ -7,6 +7,8 @@ export default function UserFormButtonBar({
   onCancel,
   onSubmit,
   isSubmitDisabled,
+  inUse,
+  outOfOrder,
 }) {
   const handleClick = (action) => {
     if (action === "cancel") {
@@ -15,6 +17,8 @@ export default function UserFormButtonBar({
       onSubmit(loadInfo);
     }
   };
+
+  const buttonLabel = inUse && !outOfOrder ? "Finish Load" : "Submit";
 
   return (
     <div className={styles.userFormButtonBar}>
@@ -26,7 +30,7 @@ export default function UserFormButtonBar({
         disabled={isSubmitDisabled}
         onClick={() => handleClick("continue")}
       >
-        Submit
+        {buttonLabel}
       </button>
     </div>
   );
@@ -37,4 +41,6 @@ UserFormButtonBar.propTypes = {
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   isSubmitDisabled: PropTypes.bool.isRequired,
+  inUse: PropTypes.bool.isRequired,
+  outOfOrder: PropTypes.bool.isRequired,
 };

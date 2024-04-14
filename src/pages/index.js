@@ -112,6 +112,10 @@ export default function Home() {
                 machines.find((machine) => machine.id === selectedMachine)
                   ?.outOfOrder
               }
+              inUse={
+                machines.find((machine) => machine.id === selectedMachine)
+                  ?.inUse
+              }
               onClose={handleCloseForm}
               onSubmit={handleFormSubmit}
             />

@@ -10,6 +10,7 @@ export default function UserForm({
   onClose,
   onSubmit,
   outOfOrder,
+  inUse,
 }) {
   const [loadInfo, setLoadInfo] = useState({
     machineId,
@@ -21,7 +22,9 @@ export default function UserForm({
     outOfOrder,
   });
 
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(
+    !inUse || outOfOrder,
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,60 +55,66 @@ export default function UserForm({
 
   return (
     <div className={styles.userFormContainer}>
-      <form onSubmit={handleSubmit}>
-        {/* Input fields for load information */}
-        <label>
-          Machine:
-          <input
-            type="text"
-            name="machineID"
-            value={`${loadInfo.machineType.charAt(0).toUpperCase()}${loadInfo.machineType.slice(1)} ${loadInfo.machineNum}`}
-            onChange={handleChange}
-            readOnly
-          />
-        </label>
-        <label>
-          Phone Number:
-          <input
-            type="text"
-            name="phoneNumber"
-            value={loadInfo.phoneNumber}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={loadInfo.email}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Duration (minutes):
-          <input
-            type="number"
-            name="duration"
-            value={loadInfo.duration}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Out of Order:
-          <input
-            type="checkbox"
-            name="outOfOrder"
-            checked={loadInfo.outOfOrder}
-            onChange={handleOutOfOrderChange}
-          />
-        </label>
-      </form>
+      {!inUse || outOfOrder ? (
+        <form onSubmit={handleSubmit}>
+          {/* Input fields for load information */}
+          <label>
+            Machine:
+            <input
+              type="text"
+              name="machineID"
+              value={`${loadInfo.machineType.charAt(0).toUpperCase()}${loadInfo.machineType.slice(1)} ${loadInfo.machineNum}`}
+              onChange={handleChange}
+              readOnly
+            />
+          </label>
+          <label>
+            Phone Number:
+            <input
+              type="text"
+              name="phoneNumber"
+              value={loadInfo.phoneNumber}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={loadInfo.email}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Duration (minutes):
+            <input
+              type="number"
+              name="duration"
+              value={loadInfo.duration}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Out of Order:
+            <input
+              type="checkbox"
+              name="outOfOrder"
+              checked={loadInfo.outOfOrder}
+              onChange={handleOutOfOrderChange}
+            />
+          </label>
+        </form>
+      ) : (
+        <p>This machine is currently in use</p>
+      )}
       <UserFormButtonBar
         loadInfo={loadInfo}
         onCancel={onClose}
         onSubmit={handleSubmit}
         isSubmitDisabled={isSubmitDisabled}
+        inUse={inUse}
+        outOfOrder={outOfOrder}
       />
     </div>
   );
@@ -118,4 +127,5 @@ UserForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   outOfOrder: PropTypes.bool.isRequired,
+  inUse: PropTypes.bool.isRequired,
 };
