@@ -21,17 +21,33 @@ export default function UserForm({
     outOfOrder,
   });
 
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    const newValue = type === "checkbox" ? checked : value;
+    const { name, value } = e.target;
     setLoadInfo((prevLoadInfo) => ({
       ...prevLoadInfo,
-      [name]: newValue,
+      [name]: value,
     }));
+
+    if (name === "duration") {
+      setIsSubmitDisabled(value === "");
+    }
+  };
+
+  const handleOutOfOrderChange = (e) => {
+    const { checked } = e.target;
+    setLoadInfo((prevLoadInfo) => ({
+      ...prevLoadInfo,
+      outOfOrder: checked,
+    }));
+
+    setIsSubmitDisabled(false);
   };
 
   const handleSubmit = () => {
-    onSubmit(loadInfo); // Submit load info to the parent component
+    onSubmit(loadInfo);
+    setIsSubmitDisabled(true);
   };
 
   return (
@@ -81,7 +97,7 @@ export default function UserForm({
             type="checkbox"
             name="outOfOrder"
             checked={loadInfo.outOfOrder}
-            onChange={handleChange}
+            onChange={handleOutOfOrderChange}
           />
         </label>
       </form>
@@ -89,6 +105,7 @@ export default function UserForm({
         loadInfo={loadInfo}
         onCancel={onClose}
         onSubmit={handleSubmit}
+        isSubmitDisabled={isSubmitDisabled}
       />
     </div>
   );
