@@ -30,7 +30,7 @@ export default function UserForm({
       [name]: value,
     }));
 
-    if (name === "duration") {
+    if (name === "duration" && outOfOrder === false) {
       setIsSubmitDisabled(value === "");
     }
   };
