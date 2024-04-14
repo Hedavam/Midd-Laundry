@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "@/styles/UserForm.module.css";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import Cookies from "js-cookie";
 import UserFormButtonBar from "./UserFormButtonBar";
 
 export default function UserForm({
@@ -16,11 +18,20 @@ export default function UserForm({
     machineId,
     machineNum,
     machineType,
-    phoneNumber: "",
-    email: "",
+    phoneNumber: Cookies.get("phoneNumber") || "",
+    email: Cookies.get("email") || "",
     duration: "",
     outOfOrder,
   });
+
+  useEffect(() => {
+    // Set initial values for phone number and email from cookies
+    setLoadInfo((prevLoadInfo) => ({
+      ...prevLoadInfo,
+      phoneNumber: Cookies.get("phoneNumber") || "",
+      email: Cookies.get("email") || "",
+    }));
+  }, []);
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(
     !inUse || outOfOrder,
@@ -49,6 +60,9 @@ export default function UserForm({
   };
 
   const handleSubmit = () => {
+    Cookies.set("phoneNumber", loadInfo.phoneNumber);
+    Cookies.set("email", loadInfo.email);
+
     onSubmit(loadInfo);
     setIsSubmitDisabled(true);
   };
@@ -71,7 +85,7 @@ export default function UserForm({
           <label>
             Phone Number:
             <input
-              type="text"
+              type="tel"
               name="phoneNumber"
               value={loadInfo.phoneNumber}
               onChange={handleChange}
