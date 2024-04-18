@@ -1,11 +1,11 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import UserForm from "@/components/UserForm";
-import Head from "next/head";
 import PropTypes from "prop-types";
 import styles from "@/styles/Home.module.css";
 import Machine from "../components/Machine";
 
-export default function Home() {
+export default function Room({ showRooms, setShowRooms }) {
   const [machines, setMachines] = useState([
     { id: 1, num: 1, type: "washer", inUse: false, outOfOrder: false },
     { id: 2, num: 2, type: "washer", inUse: false, outOfOrder: false },
@@ -19,6 +19,8 @@ export default function Home() {
 
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [showUserForm, setShowUserForm] = useState(false);
+
+  const router = useRouter();
 
   const toggleMachine = (id) => {
     setSelectedMachine(id);
@@ -54,12 +56,17 @@ export default function Home() {
     setShowUserForm(false);
   };
 
+  const handleBackButtonClick = () => {
+    router.back(); // Redirect to the previous page
+    setShowRooms(true); // Show the room buttons again
+  };
+
   return (
-    <>
-      <Head>
-        <title>Laundry Availability</title>
-      </Head>
+    !showRooms && (
       <main className={styles.main}>
+        <button type="button" onClick={handleBackButtonClick}>
+          Back to Rooms
+        </button>
         <h1>Laundry Availability</h1>
         <div className={styles.row}>
           <h2 style={{ textAlign: "center" }}>Washers </h2>
@@ -122,10 +129,12 @@ export default function Home() {
           </div>
         )}
       </main>
-    </>
+    )
   );
 }
 
-Home.propTypes = {
+Room.propTypes = {
   pageProps: PropTypes.shape({}),
+  showRooms: PropTypes.bool,
+  setShowRooms: PropTypes.func,
 };
