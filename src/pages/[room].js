@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import UserForm from "@/components/UserForm";
-import Head from "next/head";
 import PropTypes from "prop-types";
-import styles from "@/styles/Home.module.css";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Machine from "../components/Machine";
 
-export default function Home() {
+export default function Room({ currentRoom, setCurrentRoom }) {
   const [machines, setMachines] = useState([
     { id: 1, num: 1, type: "washer", inUse: false, outOfOrder: false },
     { id: 2, num: 2, type: "washer", inUse: false, outOfOrder: false },
@@ -47,59 +49,31 @@ export default function Home() {
     // Update the machines state with the updated machines array
     setMachines(updatedMachines);
 
-    // eslint-disable-next-line no-console
-    console.log("Submitted load info:", loadInfo);
     setMachines(updatedMachines);
     setSelectedMachine(null);
     setShowUserForm(false);
   };
 
   return (
-    <>
-      <Head>
-        <title>Laundry Availability</title>
-      </Head>
-      <main className={styles.main}>
-        <h1>Laundry Availability</h1>
-        <div className={styles.row}>
-          <h2 style={{ textAlign: "center" }}>Washers </h2>
-          <div className={styles.machines}>
-            {machines
-              .filter((machine) => machine.type === "washer")
-              .map((washer) => (
-                <Machine
-                  key={washer.id}
-                  id={washer.id}
-                  num={washer.num}
-                  type={washer.type}
-                  inUse={washer.inUse}
-                  outOfOrder={washer.outOfOrder}
-                  onClick={toggleMachine}
-                />
-              ))}
-          </div>
-        </div>
-        <div className={styles.row}>
-          <h2 style={{ textAlign: "center" }}>Dryers</h2>
-          <div className={styles.machines}>
-            {machines
-              .filter((machine) => machine.type === "dryer")
-              .map((dryer) => (
-                <Machine
-                  key={dryer.id}
-                  id={dryer.id}
-                  num={dryer.num}
-                  type={dryer.type}
-                  inUse={dryer.inUse}
-                  outOfOrder={dryer.outOfOrder}
-                  onClick={toggleMachine}
-                />
-              ))}
-          </div>
-        </div>
+    currentRoom && (
+      <Grid container spacing={2} justifyContent="center">
         {/* Render UserForm as a popup */}
         {showUserForm && (
-          <div className={styles.popup}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: 999,
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "black",
+            }}
+          >
             <UserForm
               machineId={selectedMachine}
               machineType={
@@ -119,13 +93,69 @@ export default function Home() {
               onClose={handleCloseForm}
               onSubmit={handleFormSubmit}
             />
-          </div>
+          </Box>
         )}
-      </main>
-    </>
+        <Grid item xs={12}>
+          <Button variant="outlined" onClick={() => setCurrentRoom(null)}>
+            Back to Rooms
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h2" align="center">
+            {`${currentRoom.charAt(0).toUpperCase()}${currentRoom.slice(1)}`}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h5" align="center">
+            Washers
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Box display="flex" justifyContent="center">
+            {machines
+              .filter((machine) => machine.type === "washer")
+              .map((washer) => (
+                <Machine
+                  key={washer.id}
+                  id={washer.id}
+                  num={washer.num}
+                  type={washer.type}
+                  inUse={washer.inUse}
+                  outOfOrder={washer.outOfOrder}
+                  onClick={toggleMachine}
+                />
+              ))}
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h5" align="center">
+            Dryers
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Box display="flex" justifyContent="center">
+            {machines
+              .filter((machine) => machine.type === "dryer")
+              .map((dryer) => (
+                <Machine
+                  key={dryer.id}
+                  id={dryer.id}
+                  num={dryer.num}
+                  type={dryer.type}
+                  inUse={dryer.inUse}
+                  outOfOrder={dryer.outOfOrder}
+                  onClick={toggleMachine}
+                />
+              ))}
+          </Box>
+        </Grid>
+      </Grid>
+    )
   );
 }
 
-Home.propTypes = {
+Room.propTypes = {
   pageProps: PropTypes.shape({}),
+  currentRoom: PropTypes.string,
+  setCurrentRoom: PropTypes.func,
 };

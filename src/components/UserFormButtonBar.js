@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import styles from "@/styles/UserFormButtonBar.module.css";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import UserFormShape from "./UserFormShape";
 
 export default function UserFormButtonBar({
@@ -9,30 +10,57 @@ export default function UserFormButtonBar({
   isSubmitDisabled,
   inUse,
   outOfOrder,
+  onOutOfOrder,
 }) {
   const handleClick = (action) => {
     if (action === "cancel") {
       onCancel();
     } else if (action === "continue") {
       onSubmit(loadInfo);
+    } else if (action === "outOfOrder") {
+      onOutOfOrder();
     }
   };
 
   const buttonLabel = inUse && !outOfOrder ? "Finish Load" : "Submit";
 
   return (
-    <div className={styles.userFormButtonBar}>
-      <button type="button" onClick={() => handleClick("cancel")}>
-        Cancel
-      </button>
-      <button
-        type="button"
-        disabled={isSubmitDisabled}
-        onClick={() => handleClick("continue")}
-      >
-        {buttonLabel}
-      </button>
-    </div>
+    <Grid container spacing={2} justifyContent="space-evenly">
+      <Grid item>
+        <Button variant="contained" onClick={() => handleClick("cancel")}>
+          Cancel
+        </Button>
+      </Grid>
+      {!outOfOrder ? (
+        <>
+          {!inUse && (
+            <Grid item>
+              <Button
+                variant="outlined"
+                onClick={() => handleClick("outOfOrder")}
+              >
+                Mark Out of Order
+              </Button>
+            </Grid>
+          )}
+          <Grid item>
+            <Button
+              variant="contained"
+              disabled={isSubmitDisabled}
+              onClick={() => handleClick("continue")}
+            >
+              {buttonLabel}
+            </Button>
+          </Grid>
+        </>
+      ) : (
+        <Grid item>
+          <Button variant="outlined" onClick={() => handleClick("outOfOrder")}>
+            Not Out of Order?
+          </Button>
+        </Grid>
+      )}
+    </Grid>
   );
 }
 
@@ -43,4 +71,5 @@ UserFormButtonBar.propTypes = {
   isSubmitDisabled: PropTypes.bool.isRequired,
   inUse: PropTypes.bool.isRequired,
   outOfOrder: PropTypes.bool.isRequired,
+  onOutOfOrder: PropTypes.func.isRequired,
 };
