@@ -14,7 +14,7 @@ export default function App(appProps) {
 
   const [rooms, setRooms] = useState([
     { id: 1, name: "forest" },
-    { id: 2, name: "battell" },
+    { id: 2, name: "coffrin" },
     { id: 3, name: "atwater" },
   ]);
 
