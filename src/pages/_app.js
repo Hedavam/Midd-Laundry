@@ -6,7 +6,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { AppCacheProvider } from "@mui/material-nextjs/v13-pagesRouter";
 import Head from "next/head";
 import theme from "../material/theme";
-import "@/styles/globals.css";
 
 export default function App(appProps) {
   const { Component, pageProps } = appProps;
