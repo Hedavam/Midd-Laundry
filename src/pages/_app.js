@@ -42,9 +42,11 @@ export default function App(appProps) {
 
   useEffect(() => {
     const favoriteRoomName = Cookies.get("favoriteRoom");
-    if (favoriteRoomName) {
+    if (favoriteRoomName !== "null") {
       setFavoriteRoom(favoriteRoomName);
-      router.push(`/${favoriteRoomName}`);
+      if (router.asPath === "/rooms") {
+        handleSetCurrentRoom(favoriteRoomName);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
