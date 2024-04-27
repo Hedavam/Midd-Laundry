@@ -6,10 +6,10 @@
 /* eslint-disable func-names */
 exports.up = function (knex) {
   return knex.schema.createTable("LoadInfos", (table) => {
-    table.increments("Load Id").primary();
-    table.string("Phone #");
-    table.string("email");
-    table.string("Machine ID").unique().notNullable();
+    table.increments("Load_ID").primary();
+    table.string("Phone_num");
+    table.string("Email");
+    table.integer("Machine_ID").unique().notNullable();
     table.integer("Duration").notNullable();
     table.string("Room").notNullable();
   });

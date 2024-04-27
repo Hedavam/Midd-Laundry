@@ -6,7 +6,7 @@ import knexConfig from "../knexfile";
  * is adapted from: https://www.prisma.io/docs/guides/database/troubleshooting-orm/help-articles/nextjs-prisma-client-dev-practices
  */
 
-const globalForKnex = global || {};
+const globalForKnex = global;
 
 const knex =
   globalForKnex.knex ||
