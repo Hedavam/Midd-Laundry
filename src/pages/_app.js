@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { AppCacheProvider } from "@mui/material-nextjs/v13-pagesRouter";
+import Cookies from "js-cookie";
 import Head from "next/head";
 import theme from "../material/theme";
 
@@ -19,6 +20,8 @@ export default function App(appProps) {
   ]);
 
   const [currentRoom, setCurrentRoom] = useState();
+
+  const [favoriteRoom, setFavoriteRoom] = useState();
 
   useEffect(() => {
     const roomFromQuery = router.query.room;
@@ -37,12 +40,31 @@ export default function App(appProps) {
     }
   };
 
+  useEffect(() => {
+    const favoriteRoomName = Cookies.get("favoriteRoom");
+    if (favoriteRoomName !== "null") {
+      setFavoriteRoom(favoriteRoomName);
+      if (router.asPath === "/rooms") {
+        handleSetCurrentRoom(favoriteRoomName);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleFavoriteClick = (room) => {
+    const newFavoriteRoom = favoriteRoom === room ? null : room;
+    setFavoriteRoom(newFavoriteRoom);
+    Cookies.set("favoriteRoom", newFavoriteRoom);
+  };
+
   const props = {
     ...pageProps,
     rooms,
     setRooms,
     currentRoom,
     setCurrentRoom: handleSetCurrentRoom,
+    favoriteRoom,
+    setFavoriteRoom: handleFavoriteClick,
   };
 
   return (
