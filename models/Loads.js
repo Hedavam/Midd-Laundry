@@ -1,34 +1,32 @@
 /* eslint-disable camelcase */
-// import { Model } from "objection";
 import BaseModel from "./BaseModel";
 
 export default class Loads extends BaseModel {
   // Table name is the only required property.
   static get tableName() {
-    return "LoadInfos";
+    return "Load";
   }
 
   // Objection.js assumes primary key is `id` by default
-
   static get jsonSchema() {
     return {
       type: "object",
-      oneOf: [
+      required: ["Duration", "Start"],
+      anyOf: [
         {
-          required: ["Phone #"],
+          required: ["PhoneNum"],
         },
         {
-          required: ["email"],
+          required: ["Email"],
         },
       ],
-      required: "Duration",
       properties: {
-        Load_ID: { type: "integer" },
-        Phone_num: { type: "string" },
-        Email: { type: "string" },
-        Machine_ID: { type: "integer" },
+        MachineId: { type: "integer" },
         Duration: { type: "integer" },
-        Room: { type: "string" },
+        Start: { type: "string", format: "date-time" },
+        End: { type: "string", format: "date-time" },
+        PhoneNum: { type: "string" },
+        Email: { type: "string" },
       },
     };
   }
