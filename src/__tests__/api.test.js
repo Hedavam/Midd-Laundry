@@ -12,7 +12,7 @@ import knex from "../../knex/knex";
 /* seed data for testing */
 import rooms from "../../data/rooms.json";
 import machines from "../../data/machines.json";
-// import loads from "../../data/loads.json";
+import loads from "../../data/loads.json";
 
 /* routes */
 import roomsEndpoint from "../pages/api/rooms";
@@ -20,7 +20,7 @@ import roomsEndpoint from "../pages/api/rooms";
 import machinesEndpoint from "../pages/api/rooms/[roomId]/machines";
 import machineEndpoint from "../pages/api/rooms/[roomId]/machines/[machineId]";
 
-// import loadsEndpoint from "../pages/api/rooms/[roomId]/machines/[machineId]/loads";
+import loadsEndpoint from "../pages/api/rooms/[roomId]/machines/[machineId]/loads";
 // import loadEndpoint from "../pages/api/rooms/[roomId]/machines/[machineId]/loads/[loadId]";
 
 /* Enabling Testing for Database */
@@ -110,39 +110,37 @@ describe("End-to-end testing", () => {
     });
   });
 
-  // test("POST /api/rooms/[roomId]/machines/[machineId]/loads should create a new load", async () => {
-  //   const newLoad = {
-  //     MachineId: 3,
-  //     Duration: 60,
-  //     Start: "2024-04-30T14:30:00Z",
-  //     End: "2024-04-30T15:30:00Z",
-  //     PhoneNum: "555888111",
-  //     Email: "thanks@peace.com"
-  //   };
+  test("POST /api/rooms/[roomId]/machines/[machineId]/loads should create a new load", async () => {
+    const newLoad = {
+      MachineId: 3,
+      Duration: 60,
+      Start: "2024-04-30T14:30:00Z",
+      End: "2024-04-30T15:30:00Z",
+      PhoneNum: "555888111",
+      Email: "thanks@peace.com",
+    };
 
-  //   await testApiHandler({
-  //     rejectOnHandlerError: true,
-  //     pagesHandler: loadsEndpoint,
-  //     params: { roomId: 3, machineId: newLoad.MachineId},
-  //     test: async ({ fetch }) => {
-  //       const res = await fetch({
-  //         method: "POST",
-  //         headers: {
-  //           "content-type": "application/json", // Must use correct content type
-  //         },
-  //         body: JSON.stringify(newLoad),
-  //       });
-  //       const resLoad = await res.json();
-  //       expect(resLoad).toMatchObject({
-  //         ...newLoad,
-  //         id: expect.any(Number),
-  //       });
-  //       expect(
-  //         loads.includes(resLoad.id),
-  //       ).toBe(false); // id should be unique
-  //     },
-  //   });
-  // });
+    await testApiHandler({
+      rejectOnHandlerError: true,
+      pagesHandler: loadsEndpoint,
+      params: { roomId: 3, machineId: newLoad.MachineId },
+      test: async ({ fetch }) => {
+        const res = await fetch({
+          method: "POST",
+          headers: {
+            "content-type": "application/json", // Must use correct content type
+          },
+          body: JSON.stringify(newLoad),
+        });
+        const resLoad = await res.json();
+        expect(resLoad).toMatchObject({
+          ...newLoad,
+          id: expect.any(Number),
+        });
+        expect(loads.includes(resLoad.id)).toBe(false); // id should be unique
+      },
+    });
+  });
 });
 
 //   test("GET api/machines should return all machines", async () => {
