@@ -31,11 +31,14 @@
     "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.15",
     "@mui/material-nextjs": "^5.15.11",
-    "@testcontainers/postgresql": "^10.8.2",
     "ajv-formats": "^3.0.1",
+    "db-errors": "^0.2.3",
     "js-cookie": "^3.0.5",
     "knex": "^3.1.0",
+    "middleware": "^1.0.0",
     "next": "13.5.6",
+    "next-connect": "^1.0.0",
+    "next-test-api-route-handler": "^4.0.7",
     "objection": "^3.1.4",
     "pg": "^8.11.5",
     "prop-types": "^15.8.1",
@@ -47,6 +50,7 @@
     "*.{js,css,md,json,jsx}": "prettier --write"
   },
   "devDependencies": {
+    "@testcontainers/postgresql": "^10.9.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "cross-env": "^7.0.3",
@@ -64,7 +68,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-extended": "^4.0.2",
     "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5"
+    "prettier": "^3.2.5",
+    "testcontainers": "^10.9.0"
   },
   "development": {
     "predev": "docker compose -f docker-compose.dev.yml up -d",

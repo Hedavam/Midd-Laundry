@@ -8,7 +8,7 @@ const { DATABASE_URL } = loadEnvConfig("./", dev).combinedEnv;
 const defaultSettings = {
   migrations: {
     directory: "./knex/migrations",
-    disableMigrationsListValidation: true,
+    disableMigrationsListValidation: true /* did this b/cuz Article table from RDMBS practical is not present in this project's repo no longer needed */,
   },
   seeds: {
     directory: "./knex/seeds",
@@ -37,9 +37,9 @@ module.exports = {
         password: container.getPassword(),
       };
     },
-    seeds: {
-      directory: "./knex/seeds/test",
-    },
+    // seeds: {
+    //   directory: "./knex/seeds/test",
+    // },
   },
 
   development: {
