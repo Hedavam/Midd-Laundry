@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "RoomId": 1,
+    "MachineNum": 1,
+    "Status": 0
+  },
+  {
+    "id": 2,
+    "RoomId": 1,
+    "MachineNum": 6,
+    "Status": 1
+  },
+  {
+    "id": 3,
+    "RoomId": 2,
+    "MachineNum": 2,
+    "Status": 1
+  },
+  {
+    "id": 4,
+    "RoomId": 3,
+    "MachineNum": 4,
+    "Status": 1
+  }
+]

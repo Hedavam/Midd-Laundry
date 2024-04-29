@@ -1,25 +1,36 @@
 /* eslint-disable camelcase */
-// import { Model } from "objection";
+import { Model } from "objection";
 import BaseModel from "./BaseModel";
+import Loads from "./Loads";
 
 export default class Machines extends BaseModel {
   // Table name is the only required property.
   static get tableName() {
-    return "MachineInfos";
+    return "Machine";
   }
 
   // Objection.js assumes primary key is `id` by default
-
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["Machine_num", "Machine_ID", "Status", "Room"],
+      required: ["RoomId", "MachineNum", "Status"],
       properties: {
-        Machine_num: { type: "integer" },
-        Machine_ID: { type: "integer" },
-        Status: { type: "string" },
-        Room: { type: "string" },
+        RoomId: { type: "integer" },
+        MachineNum: { type: "integer" },
+        Status: { type: "integer" },
       },
     };
   }
+
+  /* One-to-many relation between Machines & Loads - foreign key on many side (Machine) */
+  static relationMappings = {
+    loads: {
+      relation: Model.HasManyRelation,
+      modelClass: Loads,
+      join: {
+        from: "Machine.id",
+        to: "Load.MachineId",
+      },
+    },
+  };
 }
