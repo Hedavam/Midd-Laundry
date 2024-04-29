@@ -22,7 +22,7 @@ export default function UserFormButtonBar({
     }
   };
 
-  const buttonLabel = inUse && !outOfOrder ? "Finish Load" : "Submit";
+  const buttonLabel = inUse && !outOfOrder ? "Finish Load" : "Start Load";
 
   return (
     <Grid container spacing={2} justifyContent="space-evenly">
@@ -39,7 +39,7 @@ export default function UserFormButtonBar({
                 variant="outlined"
                 onClick={() => handleClick("outOfOrder")}
               >
-                Mark Out of Order
+                Out of Order?
               </Button>
             </Grid>
           )}
