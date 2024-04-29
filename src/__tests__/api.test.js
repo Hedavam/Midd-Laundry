@@ -25,9 +25,11 @@ import machineEndpoint from "../pages/api/rooms/[roomId]/machines/[machineId]";
 
 /* Enabling Testing for Database */
 describe("End-to-end testing", () => {
-  beforeAll(() =>
-    // Ensure test database is initialized before an tests
-    knex.migrate.rollback().then(() => knex.migrate.latest()),
+  beforeAll(
+    () =>
+      // Ensure test database is initialized before an tests
+      knex.migrate.rollback().then(() => knex.migrate.latest()),
+    20000 /* increase time, so our hook doesn't time out */,
   );
 
   afterAll(() =>
