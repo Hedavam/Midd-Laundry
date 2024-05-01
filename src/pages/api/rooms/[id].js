@@ -1,12 +1,12 @@
-/* implements api/rooms/1/machines route */
+/* implements api/rooms/1/ route; rooms/1 -> /machines; knowing the room is all we need to get its machines */
 
 import { createRouter } from "next-connect";
-import { onError } from "../../../../../lib/middleware";
-import Machines from "../../../../../../models/Machines";
+import { onError } from "../../../lib/middleware";
+import Machines from "../../../../models/Machines";
 
 const router = createRouter();
 
-/* GET method -> will fetch all machines in a specific room */
+/* GET method -> will return all machines */
 router.get(async (req, res) => {
   const { roomId } = req.query;
   const machines = await Machines.query().where("RoomId", roomId);

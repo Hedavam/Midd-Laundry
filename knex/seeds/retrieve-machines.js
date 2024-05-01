@@ -13,7 +13,8 @@ exports.seed = function (knex) {
 
   // Deletes ALL existing entries
   // Use batch insert because we have too many articles for simple insert
-  return knex("Machine")
-    .del()
+  return knex
+    .raw('ALTER SEQUENCE "Machine_id_seq" RESTART WITH 1')
+    .then(() => knex("Machine").del())
     .then(() => knex.batchInsert("Machine", data, 100));
 };

@@ -25,8 +25,8 @@ export default class Loads extends BaseModel {
         Duration: { type: "integer" },
         Start: { type: "string", format: "date-time" },
         End: { type: "string", format: "date-time" },
-        PhoneNum: { type: "string" },
-        Email: { type: "string" },
+        PhoneNum: { type: ["string", "null"] },
+        Email: { type: ["string", "null"] },
       },
     };
   }
