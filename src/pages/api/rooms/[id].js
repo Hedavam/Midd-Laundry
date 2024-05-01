@@ -8,7 +8,7 @@ const router = createRouter();
 
 /* GET method -> will return all machines */
 router.get(async (req, res) => {
-  const { roomId } = req.query;
+  const roomId = req.query.id;
   const machines = await Machines.query().where("RoomId", roomId);
   res.status(200).json(machines);
 });

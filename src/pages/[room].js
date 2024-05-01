@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserForm from "@/components/UserForm";
 import PropTypes from "prop-types";
 import Grid from "@mui/material/Grid";
@@ -9,16 +9,35 @@ import Machine from "../components/Machine";
 
 export default function Room({ currentRoom, setCurrentRoom }) {
   /* will fetch something that looks similar to this using info passed down about the currentRoomId, will have to adjust inUse as we have separate loads table for this */
-  const [machines, setMachines] = useState([
-    { id: 1, num: 1, type: "washer", inUse: false, outOfOrder: false },
-    { id: 2, num: 2, type: "washer", inUse: false, outOfOrder: false },
-    { id: 3, num: 3, type: "washer", inUse: false, outOfOrder: false },
-    { id: 4, num: 4, type: "washer", inUse: false, outOfOrder: false },
-    { id: 5, num: 1, type: "dryer", inUse: false, outOfOrder: false },
-    { id: 6, num: 2, type: "dryer", inUse: false, outOfOrder: false },
-    { id: 7, num: 3, type: "dryer", inUse: false, outOfOrder: false },
-    { id: 8, num: 4, type: "dryer", inUse: false, outOfOrder: false },
-  ]);
+  const [machines, setMachines] = useState([]);
+
+  useEffect(() => {
+    /* Early exit if currentRoom or its id is undefined */
+    if (!currentRoom || !currentRoom.id) {
+      return;
+    }
+    const fetchMachines = async () => {
+      try {
+        const response = await fetch(`/api/rooms/${currentRoom.id}`);
+        if (response.ok) {
+          const machinesData = await response.json();
+          setMachines(machinesData);
+        } else {
+          setMachines(null);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Error fetching machines:", error);
+      }
+    };
+    fetchMachines();
+  }, [
+    currentRoom,
+  ]); /* want to make this api call when currentRoom changes; on reload, this should trigger again */
+
+  // console.log(machines); /* COOL, we get what we want here!!! */
+
+  /* TODO: Some of this logic will have to change, especially with inUse and outOfOrder */
 
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [showUserForm, setShowUserForm] = useState(false);
@@ -34,6 +53,8 @@ export default function Room({ currentRoom, setCurrentRoom }) {
   };
 
   const handleFormSubmit = (loadInfo) => {
+    // loadInfo is the stuff being inputted into the form
+
     // Find the index of the selected machine by its id
     const selectedMachineIndex = machines.findIndex(
       (machine) => machine.id === selectedMachine,
@@ -55,6 +76,40 @@ export default function Room({ currentRoom, setCurrentRoom }) {
     setShowUserForm(false);
   };
 
+  /* Make the api call to get post this machine's load - in here? - i think in here! */
+  useEffect(() => {
+    /* Early exit if load info being put in or its id is not defined??? */
+    if (!selectedMachine) {
+      return;
+    }
+    const postLoad = async () => {
+      try {
+        const response = await fetch(`/api/machines/${selectedMachine}/loads`, {
+          /* this second arg. specifies POST request, with JSON encoded data that is expecting a JSON response */
+          method: "POST",
+          // body: JSON.stringify(newLoad), TODO: how do we get the new load in here?
+          headers: new Headers({
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          }),
+        });
+        if (response.ok) {
+          const loadData = await response.json();
+          postLoad(loadData);
+        } else {
+          postLoad(null); // hmm
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Error posting load:", error);
+      }
+    };
+    postLoad();
+  }, [
+    selectedMachine,
+  ]); /* want to make this api call when currentRoom changes; on reload, this should trigger again */
+
+  /* TODO: Change var. names down here */
   return (
     currentRoom && (
       <Grid container spacing={2} justifyContent="center">
@@ -75,17 +130,18 @@ export default function Room({ currentRoom, setCurrentRoom }) {
               color: "black",
             }}
           >
-            <UserForm
+            <UserForm /* TODO: Modify UserForm component! */
               machineId={selectedMachine}
               machineType={
-                machines.find((machine) => machine.id === selectedMachine)?.type
+                machines.find((machine) => machine.id === selectedMachine)?.Type
               }
               machineNum={
-                machines.find((machine) => machine.id === selectedMachine)?.num
+                machines.find((machine) => machine.id === selectedMachine)
+                  ?.MachineNum
               }
               outOfOrder={
                 machines.find((machine) => machine.id === selectedMachine)
-                  ?.outOfOrder
+                  ?.Status
               }
               inUse={
                 machines.find((machine) => machine.id === selectedMachine)
@@ -103,7 +159,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h2" align="center">
-            {`${currentRoom.charAt(0).toUpperCase()}${currentRoom.slice(1)}`}
+            {`${currentRoom.Name.charAt(0).toUpperCase()}${currentRoom.Name.slice(1)}`}
           </Typography>
         </Grid>
         <Grid item xs={12}>
@@ -114,15 +170,15 @@ export default function Room({ currentRoom, setCurrentRoom }) {
         <Grid item xs={12}>
           <Box display="flex" justifyContent="center">
             {machines
-              .filter((machine) => machine.type === "washer")
+              .filter((machine) => machine.Type === "washer")
               .map((washer) => (
-                <Machine
+                <Machine /* TODO: Also change Machine component */
                   key={washer.id}
                   id={washer.id}
-                  num={washer.num}
-                  type={washer.type}
+                  num={washer.MachineNum}
+                  type={washer.Type}
                   inUse={washer.inUse}
-                  outOfOrder={washer.outOfOrder}
+                  outOfOrder={washer.Status}
                   onClick={toggleMachine}
                 />
               ))}
@@ -130,21 +186,21 @@ export default function Room({ currentRoom, setCurrentRoom }) {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h5" align="center">
-            Dryers
+            Dryer
           </Typography>
         </Grid>
         <Grid item xs={12}>
           <Box display="flex" justifyContent="center">
             {machines
-              .filter((machine) => machine.type === "dryer")
+              .filter((machine) => machine.Type === "dryer")
               .map((dryer) => (
                 <Machine
                   key={dryer.id}
                   id={dryer.id}
-                  num={dryer.num}
-                  type={dryer.type}
+                  num={dryer.MachineNum}
+                  type={dryer.Type}
                   inUse={dryer.inUse}
-                  outOfOrder={dryer.outOfOrder}
+                  outOfOrder={dryer.Status}
                   onClick={toggleMachine}
                 />
               ))}
