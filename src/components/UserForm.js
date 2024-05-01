@@ -5,76 +5,155 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Cookies from "js-cookie";
+// import Room from "@/pages/[room]";
 import UserFormButtonBar from "./UserFormButtonBar";
+// import { StartupCheckStrategy } from "testcontainers";
 
 export default function UserForm({
-  machineId,
-  machineNum,
-  machineType,
-  outOfOrder,
+  id,
+  RoomId,
+  MachineNum,
+  Type,
+  OutOfOrder,
   inUse,
   onClose,
   onSubmit,
 }) {
   const [loadInfo, setLoadInfo] = useState({
-    machineId,
-    machineNum,
-    machineType,
-    phoneNumber: Cookies.get("phoneNumber") || "",
-    email: Cookies.get("email") || "",
-    duration: "",
-    outOfOrder,
+    id,
+    RoomId,
+    MachineNum,
+    Type,
+    PhoneNum: Cookies.get("phoneNumber") || "",
+    Email: Cookies.get("email") || "",
+    Duration: null,
+    OutOfOrder,
   });
 
   useEffect(() => {
     // Set initial values for phone number and email from cookies
     setLoadInfo((prevLoadInfo) => ({
       ...prevLoadInfo,
-      phoneNumber: Cookies.get("phoneNumber") || "",
-      email: Cookies.get("email") || "",
+      PhoneNum: Cookies.get("phoneNumber") || "",
+      Email: Cookies.get("email") || "",
     }));
   }, []);
 
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(
-    !inUse || outOfOrder,
+    !inUse || OutOfOrder,
   );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoadInfo((prevLoadInfo) => ({
       ...prevLoadInfo,
-      [name]: value,
+      [name]: name === "Duration" ? parseInt(value, 10) : value,
     }));
 
-    if (name === "duration" && outOfOrder === false) {
+    if (name === "Duration" && OutOfOrder === false) {
       setIsSubmitDisabled(value === "");
     }
   };
 
   const handleOutOfOrder = () => {
-    const updatedLoadInfo = { ...loadInfo, outOfOrder: !loadInfo.outOfOrder };
-    setLoadInfo(updatedLoadInfo);
+    const updatedLoadInfo = { ...loadInfo, OutOfOrder: !loadInfo.OutOfOrder };
+    const { Duration, Email, PhoneNum, ...simplifiedLoadInfo } =
+      updatedLoadInfo;
+
+    const toggleOutOfOrder = async () => {
+      try {
+        const response = await fetch(`/api/machines/${id}`, {
+          method: "PUT",
+          body: JSON.stringify(simplifiedLoadInfo),
+          headers: new Headers({
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          }),
+        });
+        if (response.ok) {
+          const loadData = await response.json();
+          setLoadInfo(loadData);
+        } else {
+          setLoadInfo(null);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Error posting load:", error);
+      }
+    };
+
+    toggleOutOfOrder();
+
     onSubmit(updatedLoadInfo);
   };
 
-  const handleSubmit = () => {
-    Cookies.set("phoneNumber", loadInfo.phoneNumber);
-    Cookies.set("email", loadInfo.email);
+  const handleStartLoad = () => {
+    Cookies.set("phoneNumber", loadInfo.PhoneNum);
+    Cookies.set("email", loadInfo.Email);
 
-    onSubmit(loadInfo);
+    const updatedLoadInfo = { ...loadInfo };
+    // eslint-disable-next-line no-shadow
+    const { OutOfOrder, Type, id, MachineNum, RoomId, ...simplifiedLoadInfo } =
+      updatedLoadInfo;
+
+    const startTime = new Date(); // Current time
+    const endTime = new Date(
+      startTime.getTime() +
+        simplifiedLoadInfo.Duration * 60 * 1000 +
+        10 * 60 * 1000,
+    ); // Current time + duration + 10 minutes
+
+    const Start = startTime.toISOString();
+    const End = endTime.toISOString();
+
+    const updatedSimplifiedLoadInfo = {
+      ...simplifiedLoadInfo,
+      Start,
+      End,
+      MachineId: loadInfo.id,
+    };
+
+    console.log(updatedSimplifiedLoadInfo);
+
+    const postLoad = async () => {
+      try {
+        const response = await fetch(`/api/machines/${id}/loads`, {
+          method: "POST",
+          body: JSON.stringify(updatedSimplifiedLoadInfo),
+          headers: new Headers({
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          }),
+        });
+        if (response.ok) {
+          const loadData = await response.json();
+          setLoadInfo(loadData);
+        } else {
+          setLoadInfo(null);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Error posting load:", error);
+      }
+    };
+
+    postLoad();
+
+    onSubmit(updatedLoadInfo);
+
     setIsSubmitDisabled(true);
   };
 
   return (
     <Box sx={{ maxWidth: "400px", margin: "auto" }}>
-      {!inUse && !outOfOrder ? (
-        <form onSubmit={handleSubmit}>
+      {!inUse && !OutOfOrder ? (
+        <form onSubmit={handleStartLoad}>
           {/* Input fields for load information */}
           <TextField
             label="Machine"
             variant="outlined"
             fullWidth
-            value={`${loadInfo.machineType.charAt(0).toUpperCase()}${loadInfo.machineType.slice(1)} ${loadInfo.machineNum}`}
+            value={`${loadInfo.Type.charAt(0).toUpperCase()}${loadInfo.Type.slice(1)} ${loadInfo.MachineNum}`}
             onChange={handleChange}
             name="machineID"
             readOnly
@@ -84,50 +163,49 @@ export default function UserForm({
             label="Phone Number"
             variant="outlined"
             fullWidth
-            value={loadInfo.phoneNumber}
+            value={loadInfo.PhoneNum}
             onChange={handleChange}
-            name="phoneNumber"
+            name="PhoneNum"
             sx={{ mb: 2 }}
           />
           <TextField
             label="Email"
             variant="outlined"
             fullWidth
-            value={loadInfo.email}
+            value={loadInfo.Email}
             onChange={handleChange}
-            name="email"
+            name="Email"
             sx={{ mb: 2 }}
           />
           <TextField
             label="Duration (minutes)"
             variant="outlined"
             fullWidth
-            value={loadInfo.duration}
+            value={loadInfo.Duration}
             onChange={handleChange}
-            name="duration"
+            name="Duration"
             type="number"
             sx={{ mb: 2 }}
           />
         </form>
-      ) : outOfOrder ? (
+      ) : OutOfOrder ? (
         <Typography variant="body1" align="center" sx={{ mb: 2 }}>
-          {loadInfo.machineType.charAt(0).toUpperCase()}
-          {loadInfo.machineType.slice(1)} {loadInfo.machineNum} is out of order
+          {loadInfo.Type.charAt(0).toUpperCase()}
+          {loadInfo.Type.slice(1)} {loadInfo.MachineNum} is out of order
         </Typography>
       ) : (
         <Typography variant="body1" align="center" sx={{ mb: 2 }}>
-          {loadInfo.machineType.charAt(0).toUpperCase()}
-          {loadInfo.machineType.slice(1)} {loadInfo.machineNum} is currently in
-          use
+          {loadInfo.Type.charAt(0).toUpperCase()}
+          {loadInfo.Type.slice(1)} {loadInfo.MachineNum} is currently in use
         </Typography>
       )}
       <UserFormButtonBar
         loadInfo={loadInfo}
         onCancel={onClose}
-        onSubmit={handleSubmit}
+        onSubmit={handleStartLoad}
         isSubmitDisabled={isSubmitDisabled}
         inUse={inUse}
-        outOfOrder={outOfOrder}
+        OutOfOrder={OutOfOrder}
         onOutOfOrder={handleOutOfOrder}
       />
     </Box>
@@ -135,10 +213,11 @@ export default function UserForm({
 }
 
 UserForm.propTypes = {
-  machineId: PropTypes.number.isRequired,
-  machineNum: PropTypes.number.isRequired,
-  machineType: PropTypes.string.isRequired,
-  outOfOrder: PropTypes.bool.isRequired,
+  id: PropTypes.number.isRequired,
+  RoomId: PropTypes.number.isRequired,
+  MachineNum: PropTypes.number.isRequired,
+  Type: PropTypes.string.isRequired,
+  OutOfOrder: PropTypes.bool.isRequired,
   inUse: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,

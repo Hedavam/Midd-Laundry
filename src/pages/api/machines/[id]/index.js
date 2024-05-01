@@ -24,7 +24,7 @@ router.get(async (req, res) => {
 router.put(async (req, res) => {
   const { id, ...updatedMachine } = req.body;
   // req.query.id is a string, and so needs to be converted to an integer before comparison
-  if (id !== parseInt(req.query.machineId, 10)) {
+  if (id !== parseInt(req.query.id, 10)) {
     /* Verify id in the url, e.g, /api/machines/1, matches the id the request body, so we know we're updating the right thing */
     res.status(400).end(`URL and object does not match`);
     return;

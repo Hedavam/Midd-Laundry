@@ -3,534 +3,534 @@
     "RoomId": 1,
     "MachineNum": 651,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 652,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 653,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 654,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 654,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 656,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 657,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 658,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 659,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 660,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 661,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 664,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 665,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 666,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 667,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 668,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 669,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 670,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 671,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 672,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 673,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 674,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 230,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 231,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 232,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 233,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 234,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 235,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 236,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 237,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 238,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 239,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 240,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 241,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 242,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 243,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 244,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 1,
     "MachineNum": 244,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 2,
     "MachineNum": 604,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 2,
     "MachineNum": 605,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 2,
     "MachineNum": 606,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 2,
     "MachineNum": 278,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 2,
     "MachineNum": 279,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 2,
     "MachineNum": 281,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 3,
     "MachineNum": 594,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 3,
     "MachineNum": 595,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 3,
     "MachineNum": 596,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 3,
     "MachineNum": 597,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 3,
     "MachineNum": 249,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 3,
     "MachineNum": 250,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 3,
     "MachineNum": 251,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 3,
     "MachineNum": 252,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 4,
     "MachineNum": 599,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 4,
     "MachineNum": 600,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 4,
     "MachineNum": 601,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 4,
     "MachineNum": 602,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 4,
     "MachineNum": 253,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 4,
     "MachineNum": 254,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 4,
     "MachineNum": 255,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 4,
     "MachineNum": 256,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 155,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": false
   },
   {
     "RoomId": 6,
     "MachineNum": 156,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 157,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 161,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 162,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": false
   },
   {
     "RoomId": 6,
     "MachineNum": 163,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 152,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 153,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 154,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 158,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 6,
     "MachineNum": 160,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": false
   },
   {
     "RoomId": 6,
     "MachineNum": 159,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": false
   },
   {
     "RoomId": 7,
     "MachineNum": 611,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 7,
     "MachineNum": 612,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 7,
     "MachineNum": 613,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 7,
     "MachineNum": 614,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": false
   },
   {
     "RoomId": 7,
     "MachineNum": 615,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 7,
     "MachineNum": 245,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 7,
     "MachineNum": 246,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 7,
     "MachineNum": 247,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 7,
     "MachineNum": 248,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 8,
     "MachineNum": 663,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": false
   },
   {
     "RoomId": 8,
     "MachineNum": 151,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 8,
     "MachineNum": 148,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 8,
     "MachineNum": 149,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 9,
     "MachineNum": 144,
     "Type": "washer",
-    "Status": 0
+    "OutOfOrder": false
   },
   {
     "RoomId": 9,
     "MachineNum": 145,
     "Type": "washer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 9,
     "MachineNum": 146,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   },
   {
     "RoomId": 9,
     "MachineNum": 147,
     "Type": "dryer",
-    "Status": 1
+    "OutOfOrder": true
   }
 ]

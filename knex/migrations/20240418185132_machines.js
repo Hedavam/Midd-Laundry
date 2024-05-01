@@ -15,9 +15,7 @@ exports.up = function (knex) {
       .onDelete("CASCADE"); /* Foreign key constraint */
     table.integer("MachineNum").notNullable();
     table.string("Type").notNullable();
-    table
-      .integer("Status")
-      .notNullable(); /* 0 for in-order, 1 for out-of-order */
+    table.boolean("OutOfOrder").notNullable();
   });
 };
 

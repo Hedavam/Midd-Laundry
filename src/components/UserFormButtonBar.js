@@ -9,7 +9,7 @@ export default function UserFormButtonBar({
   onSubmit,
   isSubmitDisabled,
   inUse,
-  outOfOrder,
+  OutOfOrder,
   onOutOfOrder,
 }) {
   const handleClick = (action) => {
@@ -22,7 +22,7 @@ export default function UserFormButtonBar({
     }
   };
 
-  const buttonLabel = inUse && !outOfOrder ? "Finish Load" : "Start Load";
+  const buttonLabel = inUse && !OutOfOrder ? "Finish Load" : "Start Load";
 
   return (
     <Grid container spacing={2} justifyContent="space-evenly">
@@ -31,7 +31,7 @@ export default function UserFormButtonBar({
           Cancel
         </Button>
       </Grid>
-      {!outOfOrder ? (
+      {!OutOfOrder ? (
         <>
           {!inUse && (
             <Grid item>
@@ -70,6 +70,6 @@ UserFormButtonBar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isSubmitDisabled: PropTypes.bool.isRequired,
   inUse: PropTypes.bool.isRequired,
-  outOfOrder: PropTypes.bool.isRequired,
+  OutOfOrder: PropTypes.bool.isRequired,
   onOutOfOrder: PropTypes.func.isRequired,
 };

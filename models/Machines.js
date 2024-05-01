@@ -13,12 +13,12 @@ export default class Machines extends BaseModel {
   static get jsonSchema() {
     return {
       type: "object",
-      required: ["RoomId", "MachineNum", "Status"],
+      required: ["RoomId", "MachineNum", "OutOfOrder"],
       properties: {
         RoomId: { type: "integer" },
         MachineNum: { type: "integer" },
         Type: { type: "string" },
-        Status: { type: "integer" },
+        OutOfOrder: { type: "boolean" },
       },
     };
   }

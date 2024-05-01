@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 
-export default function Machine({ id, MachineNum, inUse, Status, onClick }) {
+export default function Machine({
+  id,
+  MachineNum,
+  inUse,
+  OutOfOrder,
+  onClick,
+}) {
   const machineStatusStyle = {
     width: "120px", // Adjust the width as needed
     height: "120px", // Adjust the height as needed
@@ -11,7 +17,7 @@ export default function Machine({ id, MachineNum, inUse, Status, onClick }) {
     padding: "8px",
     cursor: "pointer",
     // eslint-disable-next-line no-nested-ternary
-    backgroundColor: Status ? "#ff6961" : inUse ? "#fdfd96" : "#77dd77",
+    backgroundColor: OutOfOrder ? "#ff6961" : inUse ? "#fdfd96" : "#77dd77",
   };
 
   return (
@@ -25,7 +31,7 @@ Machine.propTypes = {
   id: PropTypes.number.isRequired,
   MachineNum: PropTypes.number.isRequired,
   // Type: PropTypes.string.isRequired,
-  Status: PropTypes.bool.isRequired,
+  OutOfOrder: PropTypes.bool.isRequired,
   inUse:
     PropTypes.bool.isRequired /* can keep this, and modify based on loads */,
   onClick: PropTypes.func.isRequired,

@@ -31,13 +31,12 @@ export default function Room({ currentRoom, setCurrentRoom }) {
       }
     };
     fetchMachines();
-  }, [
-    currentRoom,
-  ]); /* want to make this api call when currentRoom changes; on reload, this should trigger again */
+  }, [currentRoom]);
 
   // console.log(machines); /* COOL, we get what we want here!!! */
 
   /* TODO: Some of this logic will have to change, especially with inUse and outOfOrder */
+  useEffect(() => {}, []);
 
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [showUserForm, setShowUserForm] = useState(false);
@@ -65,7 +64,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
     updatedMachines[selectedMachineIndex] = {
       ...updatedMachines[selectedMachineIndex],
       inUse: !!loadInfo.duration,
-      outOfOrder: loadInfo.outOfOrder,
+      OutOfOrder: loadInfo.OutOfOrder,
     };
 
     // Update the machines state with the updated machines array
@@ -76,38 +75,38 @@ export default function Room({ currentRoom, setCurrentRoom }) {
     setShowUserForm(false);
   };
 
-  /* Make the api call to get post this machine's load - in here? - i think in here! */
-  useEffect(() => {
-    /* Early exit if load info being put in or its id is not defined??? */
-    if (!selectedMachine) {
-      return;
-    }
-    const postLoad = async () => {
-      try {
-        const response = await fetch(`/api/machines/${selectedMachine}/loads`, {
-          /* this second arg. specifies POST request, with JSON encoded data that is expecting a JSON response */
-          method: "POST",
-          // body: JSON.stringify(newLoad), TODO: how do we get the new load in here?
-          headers: new Headers({
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          }),
-        });
-        if (response.ok) {
-          const loadData = await response.json();
-          postLoad(loadData);
-        } else {
-          postLoad(null); // hmm
-        }
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error("Error posting load:", error);
-      }
-    };
-    postLoad();
-  }, [
-    selectedMachine,
-  ]); /* want to make this api call when currentRoom changes; on reload, this should trigger again */
+  // /* Make the api call to get post this machine's load - in here? - i think in here! */
+  // useEffect(() => {
+  //   /* Early exit if load info being put in or its id is not defined??? */
+  //   if (!selectedMachine) {
+  //     return;
+  //   }
+  //   const postLoad = async () => {
+  //     try {
+  //       const response = await fetch(`/api/machines/${selectedMachine}/loads`, {
+  //         /* this second arg. specifies POST request, with JSON encoded data that is expecting a JSON response */
+  //         method: "POST",
+  //         // body: JSON.stringify(newLoad), TODO: how do we get the new load in here?
+  //         headers: new Headers({
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //         }),
+  //       });
+  //       if (response.ok) {
+  //         const loadData = await response.json();
+  //         postLoad(loadData);
+  //       } else {
+  //         postLoad(null); // hmm
+  //       }
+  //     } catch (error) {
+  //       // eslint-disable-next-line no-console
+  //       console.error("Error posting load:", error);
+  //     }
+  //   };
+  //   postLoad();
+  // }, [
+  //   selectedMachine,
+  // ]); /* want to make this api call when currentRoom changes; on reload, this should trigger again */
 
   /* TODO: Change var. names down here */
   return (
@@ -131,17 +130,18 @@ export default function Room({ currentRoom, setCurrentRoom }) {
             }}
           >
             <UserForm /* TODO: Modify UserForm component! */
-              machineId={selectedMachine}
-              machineType={
+              id={selectedMachine}
+              RoomId={currentRoom.id}
+              Type={
                 machines.find((machine) => machine.id === selectedMachine)?.Type
               }
-              machineNum={
+              MachineNum={
                 machines.find((machine) => machine.id === selectedMachine)
                   ?.MachineNum
               }
-              outOfOrder={
+              OutOfOrder={
                 machines.find((machine) => machine.id === selectedMachine)
-                  ?.Status
+                  ?.OutOfOrder
               }
               inUse={
                 machines.find((machine) => machine.id === selectedMachine)
@@ -171,14 +171,15 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           <Box display="flex" justifyContent="center">
             {machines
               .filter((machine) => machine.Type === "washer")
+              .sort((a, b) => a.MachineNum - b.MachineNum)
               .map((washer) => (
-                <Machine /* TODO: Also change Machine component */
+                <Machine
                   key={washer.id}
                   id={washer.id}
-                  num={washer.MachineNum}
+                  MachineNum={washer.MachineNum}
                   type={washer.Type}
                   inUse={washer.inUse}
-                  outOfOrder={washer.Status}
+                  OutOfOrder={washer.OutOfOrder}
                   onClick={toggleMachine}
                 />
               ))}
@@ -193,14 +194,15 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           <Box display="flex" justifyContent="center">
             {machines
               .filter((machine) => machine.Type === "dryer")
+              .sort((a, b) => a.MachineNum - b.MachineNum)
               .map((dryer) => (
                 <Machine
                   key={dryer.id}
                   id={dryer.id}
-                  num={dryer.MachineNum}
+                  MachineNum={dryer.MachineNum}
                   type={dryer.Type}
                   inUse={dryer.inUse}
-                  outOfOrder={dryer.Status}
+                  OutOfOrder={dryer.OutOfOrder}
                   onClick={toggleMachine}
                 />
               ))}
