@@ -185,7 +185,6 @@ export default function Room({ currentRoom, setCurrentRoom }) {
               .sort((a, b) => a.MachineNum - b.MachineNum)
               .map((dryer) => (
                 <Machine
-                  data-testid="dryer"
                   key={dryer.id}
                   id={dryer.id}
                   MachineNum={dryer.MachineNum}
