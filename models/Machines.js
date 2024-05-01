@@ -17,6 +17,7 @@ export default class Machines extends BaseModel {
       properties: {
         RoomId: { type: "integer" },
         MachineNum: { type: "integer" },
+        Type: { type: "string" },
         Status: { type: "integer" },
       },
     };

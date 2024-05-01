@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Machine from "../components/Machine";
 
 export default function Room({ currentRoom, setCurrentRoom }) {
+  /* will fetch something that looks similar to this using info passed down about the currentRoomId, will have to adjust inUse as we have separate loads table for this */
   const [machines, setMachines] = useState([
     { id: 1, num: 1, type: "washer", inUse: false, outOfOrder: false },
     { id: 2, num: 2, type: "washer", inUse: false, outOfOrder: false },

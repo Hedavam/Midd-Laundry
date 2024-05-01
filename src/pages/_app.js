@@ -20,6 +20,7 @@ export default function App(appProps) {
   ]);
 
   const [currentRoom, setCurrentRoom] = useState();
+  /* probably will need to setCurrentRoomId (state) & pass down to [room].js, so that in that file, we can fetch necessary machines */
 
   const [favoriteRoom, setFavoriteRoom] = useState();
 

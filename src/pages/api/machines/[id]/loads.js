@@ -1,8 +1,8 @@
-/* implements api/rooms/1/machines/1/loads route */
+/* implements api/machines/[id]/loads route */
 
 import { createRouter } from "next-connect";
-import { onError } from "../../../../../../../lib/middleware";
-import Loads from "../../../../../../../../models/Loads";
+import { onError } from "../../../../lib/middleware";
+import Loads from "../../../../../models/Loads";
 
 const router = createRouter();
 
