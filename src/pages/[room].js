@@ -112,7 +112,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" data-testid="washer">
             {machines
               .filter((machine) => machine.type === "washer")
               .map((washer) => (
@@ -134,7 +134,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" data-testid="dryer">
             {machines
               .filter((machine) => machine.type === "dryer")
               .map((dryer) => (
