@@ -15,9 +15,9 @@ export default function Rooms({
 }) {
   // Sort the rooms array based on whether a room is favorited or not
   const sortedRooms = rooms.slice().sort((a, b) => {
-    if (a.name === favoriteRoom) return -1;
-    if (b.name === favoriteRoom) return 1;
-    return 0;
+    if (a.Name === favoriteRoom) return -1;
+    if (b.Name === favoriteRoom) return 1;
+    return a.Name.localeCompare(b.Name); // Alphabetical sorting
   });
 
   return (
@@ -33,12 +33,13 @@ export default function Rooms({
           <Grid item key={room.id}>
             <Button
               variant="contained"
-              onClick={() => setCurrentRoom(room.name)}
+              onClick={() => setCurrentRoom(room.Name)}
+              sx={{ width: "100px" }}
             >
-              {room.name}
+              {room.Name}
             </Button>
-            <IconButton onClick={() => setFavoriteRoom(room.name)}>
-              {favoriteRoom === room.name ? (
+            <IconButton onClick={() => setFavoriteRoom(room.Name)}>
+              {favoriteRoom === room.Name ? (
                 <FavoriteIcon />
               ) : (
                 <FavoriteBorder />

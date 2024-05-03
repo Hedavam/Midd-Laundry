@@ -1,26 +1,24 @@
 /* will implement the /api/loads/[machineId] route */
 
-/* front-end has no notion of loadId!
-    also, we never want a specific load by Id 
-        -> always a machine's latest one, we only need machineId here. Hence, it's specified in the route */
-
 import { createRouter } from "next-connect";
 import { onError } from "../../../lib/middleware";
 import Loads from "../../../../models/Loads";
 
 const router = createRouter();
 
+/* PUT method -> will update a load's info in case user finished load before duration + buffer or they mess up! */
 router.put(async (req, res) => {
   const { id, ...updatedLoad } = req.body;
   // req.query.id is a string, and so needs to be converted to an integer before comparison
-  if (id !== parseInt(req.query.loadId, 10)) {
+  if (id !== parseInt(req.query.id, 10)) {
+    // req.query.id is what we feeding from the api route!
     // Verify id in the url, e.g, /api/loads/1, matches the id the request body; hmm, in front-end we won't rlly have notion of loads???
     res.status(400).end(`URL and object does not match`);
     return;
   }
   // Update Database
   const load = await Loads.query()
-    .where("MachineId", req.query.machineId)
+    .where("MachineId", req.body.MachineId) // the body is the object we're feeding in, so we extract machineId
     .findOne("End", ">", new Date().toISOString());
 
   if (load) {
