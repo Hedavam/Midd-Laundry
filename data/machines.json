@@ -360,6 +360,66 @@
     "OutOfOrder": true
   },
   {
+    "RoomId": 5,
+    "MachineNum": 645,
+    "Type": "washer",
+    "OutOfOrder": false
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 646,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 647,
+    "Type": "washer",
+    "OutOfOrder": false
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 648,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 649,
+    "Type": "washer",
+    "OutOfOrder": false
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 650,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 257,
+    "Type": "dryer",
+    "OutOfOrder": false
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 258,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 465,
+    "Type": "dryer",
+    "OutOfOrder": false
+  },
+  {
+    "RoomId": 5,
+    "MachineNum": 260,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
     "RoomId": 6,
     "MachineNum": 155,
     "Type": "washer",
@@ -530,6 +590,114 @@
   {
     "RoomId": 9,
     "MachineNum": 147,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 633,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 634,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 635,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 636,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 637,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 638,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 639,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 640,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 641,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 642,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 793,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 794,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 795,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 796,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 797,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 798,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 799,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 10,
+    "MachineNum": 800,
     "Type": "dryer",
     "OutOfOrder": true
   }

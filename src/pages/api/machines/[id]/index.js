@@ -6,19 +6,20 @@ import Machines from "../../../../../models/Machines";
 
 const router = createRouter();
 
-/* GET method -> will fetch a specific machine and its latest load in a specific room */
-router.get(async (req, res) => {
-  const machineWithLoads = await Machines.query()
-    .findById(req.query.machineId)
-    .withGraphFetched("loads")
-    .modifyGraph("loads", (builder) => {
-      // Only select load that will finish in the future -> ensuring we get the last load */
-      builder.findOne("End", ">", new Date().toISOString());
-    });
-  /* convert loads to object rather than array, since each machine will only have one load that hasn't finished */
-  machineWithLoads.loads = machineWithLoads.loads[0] || null;
-  res.status(200).json(machineWithLoads);
-});
+/* Might have to get rid of this */
+// /* GET method -> will fetch a specific machine and its latest load in a specific room */
+// router.get(async (req, res) => {
+//   const machineWithLoads = await Machines.query()
+//     .findById(req.query.machineId)
+//     .withGraphFetched("loads")
+//     .modifyGraph("loads", (builder) => {
+//       // Only select load that will finish in the future -> ensuring we get the last load */
+//       builder.findOne("End", ">", new Date().toISOString());
+//     });
+//   /* convert loads to object rather than array, since each machine will only have one load that hasn't finished */
+//   machineWithLoads.loads = machineWithLoads.loads[0] || null;
+//   res.status(200).json(machineWithLoads);
+// });
 
 /* PUT method -> should update a specific machine's Status */
 router.put(async (req, res) => {

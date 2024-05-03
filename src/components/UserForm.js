@@ -113,8 +113,6 @@ export default function UserForm({
       MachineId: loadInfo.id,
     };
 
-    console.log(updatedSimplifiedLoadInfo);
-
     const postLoad = async () => {
       try {
         const response = await fetch(`/api/machines/${id}/loads`, {
@@ -144,10 +142,76 @@ export default function UserForm({
     setIsSubmitDisabled(true);
   };
 
+  const handleEndLoad = async () => {
+    const fetchLoad = async () => {
+      try {
+        const response = await fetch(`/api/machines/${loadInfo.id}/loads`);
+        if (response.ok) {
+          const loadData = await response.json();
+          const loadObject = loadData.loads.reduce(
+            (obj, item) => ({ ...obj, [item.id]: item }),
+            {},
+          );
+          return Object.values(loadObject); // TODO: maybe adjust the endpoint to just give us the loads array!
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Error fetching load:", error);
+      }
+      return null;
+    };
+
+    const updatedLoadInfo = await fetchLoad();
+
+    const endTime = new Date(); // Current time
+    const newEndTime = endTime.toISOString();
+
+    const newLoadInfo = {
+      ...updatedLoadInfo[0],
+      End: newEndTime,
+    };
+
+    const putLoad = async () => {
+      try {
+        const response = await fetch(`/api/loads/${newLoadInfo.id}`, {
+          method: "PUT",
+          body: JSON.stringify(newLoadInfo),
+          headers: new Headers({
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          }),
+        });
+        if (response.ok) {
+          const loadData = await response.json();
+          setLoadInfo(loadData);
+        } else {
+          setLoadInfo(null);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Error posting load:", error);
+      }
+    };
+
+    putLoad();
+
+    onSubmit(updatedLoadInfo);
+
+    setIsSubmitDisabled(true);
+  };
+
+  const handleSubmit = () => {
+    if (loadInfo.Duration) {
+      handleStartLoad();
+    } else {
+      handleEndLoad();
+    }
+  };
+
   return (
     <Box sx={{ maxWidth: "400px", margin: "auto" }}>
       {!inUse && !OutOfOrder ? (
-        <form onSubmit={handleStartLoad}>
+        <form onSubmit={handleSubmit}>
           {/* Input fields for load information */}
           <TextField
             label="Machine"
@@ -185,6 +249,7 @@ export default function UserForm({
             onChange={handleChange}
             name="Duration"
             type="number"
+            inputProps={{ min: 0, max: 75 }} // Restrict duration between 0 and 60 minutes
             sx={{ mb: 2 }}
           />
         </form>
@@ -202,7 +267,7 @@ export default function UserForm({
       <UserFormButtonBar
         loadInfo={loadInfo}
         onCancel={onClose}
-        onSubmit={handleStartLoad}
+        onSubmit={handleSubmit}
         isSubmitDisabled={isSubmitDisabled}
         inUse={inUse}
         OutOfOrder={OutOfOrder}
@@ -218,7 +283,7 @@ UserForm.propTypes = {
   MachineNum: PropTypes.number.isRequired,
   Type: PropTypes.string.isRequired,
   OutOfOrder: PropTypes.bool.isRequired,
-  inUse: PropTypes.bool.isRequired,
+  inUse: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

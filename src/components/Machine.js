@@ -31,8 +31,7 @@ Machine.propTypes = {
   id: PropTypes.number.isRequired,
   MachineNum: PropTypes.number.isRequired,
   // Type: PropTypes.string.isRequired,
-  OutOfOrder: PropTypes.bool.isRequired,
-  inUse:
-    PropTypes.bool.isRequired /* can keep this, and modify based on loads */,
+  OutOfOrder: PropTypes.bool,
+  inUse: PropTypes.bool /* can keep this, and modify based on loads */,
   onClick: PropTypes.func.isRequired,
 };

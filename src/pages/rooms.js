@@ -17,7 +17,7 @@ export default function Rooms({
   const sortedRooms = rooms.slice().sort((a, b) => {
     if (a.Name === favoriteRoom) return -1;
     if (b.Name === favoriteRoom) return 1;
-    return 0;
+    return a.Name.localeCompare(b.Name); // Alphabetical sorting
   });
 
   return (
@@ -34,6 +34,7 @@ export default function Rooms({
             <Button
               variant="contained"
               onClick={() => setCurrentRoom(room.Name)}
+              sx={{ width: "100px" }}
             >
               {room.Name}
             </Button>

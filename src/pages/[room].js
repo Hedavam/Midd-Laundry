@@ -12,16 +12,16 @@ export default function Room({ currentRoom, setCurrentRoom }) {
   const [machines, setMachines] = useState([]);
 
   useEffect(() => {
-    /* Early exit if currentRoom or its id is undefined */
-    if (!currentRoom || !currentRoom.id) {
-      return;
-    }
     const fetchMachines = async () => {
       try {
-        const response = await fetch(`/api/rooms/${currentRoom.id}`);
+        const response = await fetch(`/api/rooms/${currentRoom.id}/loads`);
         if (response.ok) {
           const machinesData = await response.json();
-          setMachines(machinesData);
+          const updatedMachines = machinesData.map((machine) => ({
+            ...machine,
+            inUse: !!machine.loads.length > 0, // Set 'inUse' based on the presence of active load
+          }));
+          setMachines(updatedMachines);
         } else {
           setMachines(null);
         }
@@ -30,13 +30,18 @@ export default function Room({ currentRoom, setCurrentRoom }) {
         console.error("Error fetching machines:", error);
       }
     };
+
     fetchMachines();
+
+    // Set up interval to call fetchMachines every minute
+    const intervalId = setInterval(fetchMachines, 60000);
+
+    // Clean up interval on component unmount
+    // eslint-disable-next-line consistent-return
+    return () => clearInterval(intervalId);
   }, [currentRoom]);
 
   // console.log(machines); /* COOL, we get what we want here!!! */
-
-  /* TODO: Some of this logic will have to change, especially with inUse and outOfOrder */
-  useEffect(() => {}, []);
 
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [showUserForm, setShowUserForm] = useState(false);
@@ -52,8 +57,6 @@ export default function Room({ currentRoom, setCurrentRoom }) {
   };
 
   const handleFormSubmit = (loadInfo) => {
-    // loadInfo is the stuff being inputted into the form
-
     // Find the index of the selected machine by its id
     const selectedMachineIndex = machines.findIndex(
       (machine) => machine.id === selectedMachine,
@@ -63,50 +66,15 @@ export default function Room({ currentRoom, setCurrentRoom }) {
     // Toggle the inUse state of the selected machine
     updatedMachines[selectedMachineIndex] = {
       ...updatedMachines[selectedMachineIndex],
-      inUse: !!loadInfo.duration,
+      inUse: !!loadInfo.Duration,
       OutOfOrder: loadInfo.OutOfOrder,
     };
 
     // Update the machines state with the updated machines array
     setMachines(updatedMachines);
-
-    setMachines(updatedMachines);
     setSelectedMachine(null);
     setShowUserForm(false);
   };
-
-  // /* Make the api call to get post this machine's load - in here? - i think in here! */
-  // useEffect(() => {
-  //   /* Early exit if load info being put in or its id is not defined??? */
-  //   if (!selectedMachine) {
-  //     return;
-  //   }
-  //   const postLoad = async () => {
-  //     try {
-  //       const response = await fetch(`/api/machines/${selectedMachine}/loads`, {
-  //         /* this second arg. specifies POST request, with JSON encoded data that is expecting a JSON response */
-  //         method: "POST",
-  //         // body: JSON.stringify(newLoad), TODO: how do we get the new load in here?
-  //         headers: new Headers({
-  //           Accept: "application/json",
-  //           "Content-Type": "application/json",
-  //         }),
-  //       });
-  //       if (response.ok) {
-  //         const loadData = await response.json();
-  //         postLoad(loadData);
-  //       } else {
-  //         postLoad(null); // hmm
-  //       }
-  //     } catch (error) {
-  //       // eslint-disable-next-line no-console
-  //       console.error("Error posting load:", error);
-  //     }
-  //   };
-  //   postLoad();
-  // }, [
-  //   selectedMachine,
-  // ]); /* want to make this api call when currentRoom changes; on reload, this should trigger again */
 
   /* TODO: Change var. names down here */
   return (
@@ -168,7 +136,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" flexWrap="wrap">
             {machines
               .filter((machine) => machine.Type === "washer")
               .sort((a, b) => a.MachineNum - b.MachineNum)
@@ -191,7 +159,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Box display="flex" justifyContent="center">
+          <Box display="flex" justifyContent="center" flexWrap="wrap">
             {machines
               .filter((machine) => machine.Type === "dryer")
               .sort((a, b) => a.MachineNum - b.MachineNum)
@@ -215,6 +183,9 @@ export default function Room({ currentRoom, setCurrentRoom }) {
 
 Room.propTypes = {
   pageProps: PropTypes.shape({}),
-  currentRoom: PropTypes.string,
+  currentRoom: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    Name: PropTypes.string.isRequired,
+  }),
   setCurrentRoom: PropTypes.func,
 };
