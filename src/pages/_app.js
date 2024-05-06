@@ -23,7 +23,7 @@ export default function App(appProps) {
           const roomsData = await response.json();
           setRooms(roomsData);
         } else {
-          setRooms(null);
+          setRooms([]);
         }
       } catch (error) {
         // eslint-disable-next-line no-console
