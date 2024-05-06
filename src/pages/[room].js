@@ -84,9 +84,10 @@ export default function Room({ currentRoom, setCurrentRoom }) {
         {showUserForm && (
           <Box
             sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
               width: "100%",
               height: "100%",
               zIndex: 999,
@@ -97,7 +98,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
               color: "black",
             }}
           >
-            <UserForm /* TODO: Modify UserForm component! */
+            <UserForm
               id={selectedMachine}
               RoomId={currentRoom.id}
               Type={
