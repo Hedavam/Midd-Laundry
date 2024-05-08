@@ -1,0 +1,26 @@
+[
+  {
+    "RoomId": 1,
+    "MachineNum": 651,
+    "Type": "washer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 1,
+    "MachineNum": 652,
+    "Type": "dryer",
+    "OutOfOrder": true
+  },
+  {
+    "RoomId": 2,
+    "MachineNum": 628,
+    "Type": "washer",
+    "OutOfOrder": false
+  },
+  {
+    "RoomId": 3,
+    "MachineNum": 654,
+    "Type": "dryer",
+    "OutOfOrder": true
+  }
+]
