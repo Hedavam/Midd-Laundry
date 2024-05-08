@@ -1,0 +1,42 @@
+[
+  {
+    "MachineId": 1,
+    "Duration": 30,
+    "Start": "2024-04-30T00:14:00.000Z",
+    "End": "2024-05-30T00:14:00.000Z",
+    "PhoneNum": "7869555845",
+    "Email": null
+  },
+  {
+    "MachineId": 2,
+    "Duration": 45,
+    "Start": "2024-04-30T00:14:00.000Z",
+    "End": "2024-05-22T00:14:00.000Z",
+    "PhoneNum": null,
+    "Email": "negativezero@gmail.com"
+  },
+  {
+    "MachineId": 3,
+    "Duration": 25,
+    "Start": "2024-04-30T00:14:00.000Z",
+    "End": "2024-05-21T00:14:00.000Z",
+    "PhoneNum": null,
+    "Email": "hello@gmail.com"
+  },
+  {
+    "MachineId": 1,
+    "Duration": 25,
+    "Start": "2024-04-30T00:14:00.000Z",
+    "End": "2024-05-24T00:14:00.000Z",
+    "PhoneNum": null,
+    "Email": "bye@gmail.com"
+  },
+  {
+    "MachineId": 1,
+    "Duration": 23,
+    "Start": "2024-04-30T00:14:00.000Z",
+    "End": "2024-05-23T00:14:00.000Z",
+    "PhoneNum": null,
+    "Email": "bye@gmail.com"
+  }
+]

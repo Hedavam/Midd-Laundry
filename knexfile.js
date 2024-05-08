@@ -37,9 +37,9 @@ module.exports = {
         password: container.getPassword(),
       };
     },
-    // seeds: {
-    //   directory: "./knex/seeds/test",
-    // },
+    seeds: {
+      directory: "./knex/seeds/test",
+    },
   },
 
   development: {

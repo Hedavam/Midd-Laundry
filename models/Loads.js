@@ -30,4 +30,15 @@ export default class Loads extends BaseModel {
       },
     };
   }
+
+  // static relationMappings = {
+  //   machines: {
+  //     relation: Model.BelongsToOneRelation,
+  //     modelClass: Machines,
+  //     join: {
+  //       from: "Load.MachineId",
+  //       to: "Machine.id",
+  //     },
+  //   },
+  // };
 }

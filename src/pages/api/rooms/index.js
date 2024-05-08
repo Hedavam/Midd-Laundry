@@ -8,8 +8,7 @@ const router = createRouter();
 
 /* GET method -> will fetch all rooms */
 router.get(async (req, res) => {
-  const query = Rooms.query();
-  const rooms = await query;
+  const rooms = await Rooms.query();
   res.status(200).json(rooms);
 });
 
