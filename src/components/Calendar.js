@@ -28,17 +28,10 @@ export default function Calendar({ loads }) {
       });
 
       const chartData = {
-        labels: Array.from({ length: 24 }, (_, i) => {
-          if (i === 0) return "12am"; // Label "0am" as "12am"
-          // Display labels every 3 hours
-          if (i % 3 === 0) {
-            // Convert to am/pm notation
-            const hours = i > 12 ? i - 12 : i;
-            const amPm = i >= 12 ? "pm" : "am";
-            return hours === 0 ? `${hours + 12}${amPm}` : `${hours}${amPm}`;
-          }
-          return ""; // Hide other labels
-        }),
+        labels: Array.from({ length: 24 }, (_, i) =>
+          // eslint-disable-next-line no-nested-ternary
+          i === 0 ? i + 12 : i % 3 === 0 ? (i > 12 ? i - 12 : i) : "",
+        ),
         datasets: [
           {
             label: "Load Count",
