@@ -50,7 +50,7 @@ export default function UserForm({
       [name]: name === "Duration" ? parseInt(value, 10) : value,
     }));
 
-    if (name === "Duration" && OutOfOrder === false) {
+    if (name === "Duration" && (!OutOfOrder || OutOfOrder === false)) {
       setIsSubmitDisabled(value === "");
     }
   };
@@ -245,11 +245,11 @@ export default function UserForm({
             label="Duration (minutes)"
             variant="outlined"
             fullWidth
-            value={loadInfo.Duration}
+            value={loadInfo.Duration ? loadInfo.Duration : ""}
             onChange={handleChange}
             name="Duration"
             type="number"
-            inputProps={{ min: 0, max: 75 }} // Restrict duration between 0 and 60 minutes
+            inputProps={{ min: 0, max: 75 }} // Restrict duration between 0 and 75 minutes
             sx={{ mb: 2 }}
           />
         </form>
@@ -282,7 +282,7 @@ UserForm.propTypes = {
   RoomId: PropTypes.number.isRequired,
   MachineNum: PropTypes.number.isRequired,
   Type: PropTypes.string.isRequired,
-  OutOfOrder: PropTypes.bool.isRequired,
+  OutOfOrder: PropTypes.bool,
   inUse: PropTypes.bool,
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,

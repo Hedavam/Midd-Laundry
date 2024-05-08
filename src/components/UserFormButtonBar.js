@@ -70,6 +70,6 @@ UserFormButtonBar.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isSubmitDisabled: PropTypes.bool.isRequired,
   inUse: PropTypes.bool,
-  OutOfOrder: PropTypes.bool.isRequired,
+  OutOfOrder: PropTypes.bool,
   onOutOfOrder: PropTypes.func.isRequired,
 };
