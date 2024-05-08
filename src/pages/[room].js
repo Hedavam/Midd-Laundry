@@ -6,12 +6,15 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Machine from "../components/Machine";
+import Calendar from "../components/Calendar";
 
 export default function Room({ currentRoom, setCurrentRoom }) {
   /* will fetch something that looks similar to this using info passed down about the currentRoomId, will have to adjust inUse as we have separate loads table for this */
   const [machines, setMachines] = useState([]);
+  const [loads, setLoads] = useState([]);
 
   useEffect(() => {
+    // fetch machines for the current room
     const fetchMachines = async () => {
       try {
         const response = await fetch(`/api/rooms/${currentRoom.id}/loads`);
@@ -23,7 +26,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           }));
           setMachines(updatedMachines);
         } else {
-          setMachines(null);
+          setMachines([]);
         }
       } catch (error) {
         // eslint-disable-next-line no-console
@@ -31,7 +34,26 @@ export default function Room({ currentRoom, setCurrentRoom }) {
       }
     };
 
-    fetchMachines();
+    // fetch loads for the current room
+    const fetchLoads = async () => {
+      try {
+        const response = await fetch(`/api/rooms/${currentRoom.id}/allLoads`);
+        if (response.ok) {
+          const loadsData = await response.json();
+          setLoads(loadsData);
+        } else {
+          setLoads([]);
+        }
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error("Error fetching loads:", error);
+      }
+    };
+
+    if (currentRoom) {
+      fetchMachines();
+      fetchLoads();
+    }
 
     // Set up interval to call fetchMachines every minute
     const intervalId = setInterval(fetchMachines, 60000);
@@ -40,8 +62,6 @@ export default function Room({ currentRoom, setCurrentRoom }) {
     // eslint-disable-next-line consistent-return
     return () => clearInterval(intervalId);
   }, [currentRoom]);
-
-  // console.log(machines); /* COOL, we get what we want here!!! */
 
   const [selectedMachine, setSelectedMachine] = useState(null);
   const [showUserForm, setShowUserForm] = useState(false);
@@ -76,7 +96,6 @@ export default function Room({ currentRoom, setCurrentRoom }) {
     setShowUserForm(false);
   };
 
-  /* TODO: Change var. names down here */
   return (
     currentRoom && (
       <Grid container spacing={2} justifyContent="center">
@@ -135,8 +154,6 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           <Typography variant="h5" align="center">
             Washers
           </Typography>
-        </Grid>
-        <Grid item xs={12}>
           <Box
             display="flex"
             justifyContent="center"
@@ -161,10 +178,8 @@ export default function Room({ currentRoom, setCurrentRoom }) {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h5" align="center">
-            Dryer
+            Dryers
           </Typography>
-        </Grid>
-        <Grid item xs={12}>
           <Box
             display="flex"
             justifyContent="center"
@@ -186,6 +201,12 @@ export default function Room({ currentRoom, setCurrentRoom }) {
                 />
               ))}
           </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="h5" align="center">
+            Most/Least Busy Times
+          </Typography>
+          <Calendar loads={loads} />
         </Grid>
       </Grid>
     )
