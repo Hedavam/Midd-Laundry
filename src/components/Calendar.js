@@ -27,6 +27,7 @@ export default function Calendar({ loads }) {
         loadCountByHour[startHour] += 1;
       });
 
+      // test
       const chartData = {
         labels: Array.from({ length: 24 }, (_, i) =>
           // eslint-disable-next-line no-nested-ternary
