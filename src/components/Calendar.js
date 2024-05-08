@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { CategoryScale, LinearScale, BarElement, Chart } from "chart.js";
@@ -29,8 +30,13 @@ export default function Calendar({ loads }) {
 
       const chartData = {
         labels: Array.from({ length: 24 }, (_, i) =>
-          // eslint-disable-next-line no-nested-ternary
-          i === 0 ? i + 12 : i % 3 === 0 ? (i > 12 ? i - 12 : i) : "",
+          i === 0
+            ? `${i + 12}am`
+            : i % 3 === 0
+              ? i > 12
+                ? `${i - 12}pm`
+                : `${i}am`
+              : "",
         ),
         datasets: [
           {
