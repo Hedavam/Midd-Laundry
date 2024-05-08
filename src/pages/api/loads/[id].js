@@ -1,8 +1,8 @@
 /* will implement the /api/loads/[machineId] route */
 
-/* NOTE: Might not need this 
-  If an user messes up load info, 
-  just finish and start new load */
+/* NOTE: Might not need this in case user messes up load info
+    if so, just finish and start new load. 
+    BUT, still needed to finish load (update its end time so it's no longer past current time) */
 
 import { createRouter } from "next-connect";
 import { onError } from "../../../lib/middleware";
