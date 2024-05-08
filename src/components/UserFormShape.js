@@ -12,7 +12,7 @@ const UserFormShape = PropTypes.shape({
   email: PropTypes.string,
   machineId: PropTypes.string,
   duration: PropTypes.number,
-  room: PropTypes.string.isRequired, // assumption, wait on Room ppl
+  room: PropTypes.string,
 });
 
 export default UserFormShape;

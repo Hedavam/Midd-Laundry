@@ -147,7 +147,7 @@ export default function Room({ currentRoom, setCurrentRoom }) {
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h2" align="center">
-            {`${currentRoom.Name.charAt(0).toUpperCase()}${currentRoom.Name.slice(1)}`}
+            {currentRoom.Name}
           </Typography>
         </Grid>
         <Grid item xs={12}>
