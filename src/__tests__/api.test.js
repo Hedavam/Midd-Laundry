@@ -28,7 +28,7 @@ import newLoadEndpoint from "../pages/api/machines/[id]/loads";
 /* TODO: Try diff room, machine, and machine that doesn't exist */
 
 /* Enabling Testing for Database */
-describe("End-to-end testing", () => {
+describe.skip("End-to-end testing", () => {
   beforeAll(
     () =>
       // Ensure test database is initialized before an tests

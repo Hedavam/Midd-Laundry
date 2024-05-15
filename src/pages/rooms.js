@@ -56,7 +56,7 @@ Rooms.propTypes = {
   rooms: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
+      Name: PropTypes.string.isRequired,
     }),
   ).isRequired,
   setCurrentRoom: PropTypes.func.isRequired,
