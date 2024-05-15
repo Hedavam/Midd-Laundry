@@ -23,7 +23,9 @@ import machineEndpoint from "../pages/api/machines/[id]";
 
 import newLoadEndpoint from "../pages/api/machines/[id]/loads";
 
-// import updateLoadEndpoint from "../pages/api/loads/[id]";
+import updateLoadEndpoint from "../pages/api/loads/[id]";
+
+import pendingLoadsEndpoint from "../pages/api/loads";
 
 /* TODO: Try diff room, machine, and machine that doesn't exist */
 
@@ -158,6 +160,22 @@ describe.skip("End-to-end testing", () => {
   //   /* TODO: Add additional tests for a machine whose latest load's end time < current time
   //     Basically, for a machine's that's free */
 
+  test("GET /api/loads should return all pending loads regardless of room or machine", async () => {
+    await testApiHandler({
+      rejectOnHandlerError: true, // Make sure to catch any errors
+      pagesHandler: pendingLoadsEndpoint, // NextJS API function to test
+      params: { id: 1 }, // Testing dynamic routes requires params or patcher
+      test: async ({ fetch }) => {
+        // Test endpoint with mock fetch
+        const res = await fetch();
+        const resLoads = loads.filter(
+          (load) => load.End > new Date().toISOString(),
+        );
+        await expect(res.json()).resolves.toMatchObject(resLoads);
+      },
+    });
+  });
+
   test("PUT /api/machines/[id] should update a specific machine's status", async () => {
     const updatedMachine = {
       /* Machine at index 0 has id 1 */ id: 1,
@@ -215,27 +233,26 @@ describe.skip("End-to-end testing", () => {
     });
   });
 
-  /* NOTE: maybe we don't need this test & route unless we want editing functionality for loads */
-  // test("PUT /api/loads/[id] should edit a machine's latest load", async () => {
-  //   const updatedLoad = {
-  //     id: 4,
-  //     ...loads[3],
-  //     Duration: 35,
-  //   }; /* Machine at index 3 has id 4 */
-  //   await testApiHandler({
-  //     rejectOnHandlerError: true,
-  //     pagesHandler: updateLoadEndpoint,
-  //     params: { id: updatedLoad.id },
-  //     test: async ({ fetch }) => {
-  //       const res = await fetch({
-  //         method: "PUT",
-  //         headers: {
-  //           "content-type": "application/json",
-  //         },
-  //         body: JSON.stringify(updatedLoad),
-  //       });
-  //       await expect(res.json()).resolves.toMatchObject(updatedLoad);
-  //     },
-  //   });
-  // });
+  test("PUT /api/loads/[id] should edit a machine's latest load", async () => {
+    const updatedLoad = {
+      id: 4,
+      ...loads[3],
+      Duration: 35,
+    }; /* Load at index 3 has id 4 */
+    await testApiHandler({
+      rejectOnHandlerError: true,
+      pagesHandler: updateLoadEndpoint,
+      params: { id: updatedLoad.id },
+      test: async ({ fetch }) => {
+        const res = await fetch({
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(updatedLoad),
+        });
+        await expect(res.json()).resolves.toMatchObject(updatedLoad);
+      },
+    });
+  });
 });

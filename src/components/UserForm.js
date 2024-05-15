@@ -98,9 +98,7 @@ export default function UserForm({
 
     const startTime = new Date(); // Current time
     const endTime = new Date(
-      startTime.getTime() +
-        simplifiedLoadInfo.Duration * 60 * 1000 +
-        10 * 60 * 1000,
+      startTime.getTime() + simplifiedLoadInfo.Duration * 60 * 1000, // + 10 * 60 * 1000,
     ); // Current time + duration + 10 minutes
 
     const Start = startTime.toISOString();

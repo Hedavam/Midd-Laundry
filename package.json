@@ -35,11 +35,15 @@
     "ajv-formats": "^3.0.1",
     "chart.js": "^4.4.2",
     "db-errors": "^0.2.3",
+<<<<<<< HEAD
     "fetch-mock-jest": "^1.5.1",
+=======
+    "express": "^4.19.2",
+>>>>>>> 1609619 (new route + tests)
     "js-cookie": "^3.0.5",
     "knex": "^3.1.0",
     "middleware": "^1.0.0",
-    "next": "13.5.6",
+    "next": "^13.5.6",
     "next-connect": "^1.0.0",
     "next-test-api-route-handler": "^4.0.7",
     "objection": "^3.1.4",

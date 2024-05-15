@@ -19,24 +19,24 @@
     "MachineId": 3,
     "Duration": 25,
     "Start": "2024-04-30T00:14:00.000Z",
-    "End": "2024-05-21T00:14:00.000Z",
+    "End": "2024-04-21T00:14:00.000Z",
     "PhoneNum": null,
     "Email": "hello@gmail.com"
   },
   {
-    "MachineId": 1,
+    "MachineId": 3,
     "Duration": 25,
     "Start": "2024-04-30T00:14:00.000Z",
     "End": "2024-05-24T00:14:00.000Z",
-    "PhoneNum": null,
+    "PhoneNum": "786",
     "Email": "bye@gmail.com"
   },
   {
-    "MachineId": 1,
+    "MachineId": 4,
     "Duration": 23,
     "Start": "2024-04-30T00:14:00.000Z",
     "End": "2024-05-23T00:14:00.000Z",
     "PhoneNum": null,
-    "Email": "bye@gmail.com"
+    "Email": "byeee@gmail.com"
   }
 ]

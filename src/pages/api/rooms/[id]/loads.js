@@ -1,4 +1,4 @@
-/* implements api/machines/[id]/loads route */
+/* implements api/rooms/[id]/loads route */
 
 import { createRouter } from "next-connect";
 import { onError } from "../../../../lib/middleware";
