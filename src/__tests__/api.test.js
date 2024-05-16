@@ -25,7 +25,7 @@ import newLoadEndpoint from "../pages/api/machines/[id]/loads";
 
 import updateLoadEndpoint from "../pages/api/loads/[id]";
 
-import pendingLoadsEndpoint from "../pages/api/loads";
+import latestLoadsEndpoint from "../pages/api/loads";
 
 /* TODO: Try diff room, machine, and machine that doesn't exist */
 
@@ -111,7 +111,6 @@ describe.skip("End-to-end testing", () => {
             );
 
             return {
-              // explicit return
               ...machine,
               loads: machineLoad,
             };
@@ -160,18 +159,57 @@ describe.skip("End-to-end testing", () => {
   //   /* TODO: Add additional tests for a machine whose latest load's end time < current time
   //     Basically, for a machine's that's free */
 
-  test("GET /api/loads should return all pending loads regardless of room or machine", async () => {
+  test("GET /api/loads should return latest loads for all machines pending loads regardless of room", async () => {
     await testApiHandler({
       rejectOnHandlerError: true, // Make sure to catch any errors
-      pagesHandler: pendingLoadsEndpoint, // NextJS API function to test
+      pagesHandler: latestLoadsEndpoint, // NextJS API function to test
       params: { id: 1 }, // Testing dynamic routes requires params or patcher
       test: async ({ fetch }) => {
         // Test endpoint with mock fetch
         const res = await fetch();
-        const resLoads = loads.filter(
-          (load) => load.End > new Date().toISOString(),
+
+        /* Add IDs in */
+        const machinesWithId = machines.map((machine, index) => ({
+          ...machine,
+          id: index + 1,
+        }));
+        const loadsWithId = loads.map((load, index) => ({
+          ...load,
+          id: index + 1,
+        }));
+
+        /* Only grab machines if they are referenced in loads data */
+        const machinesWithLoads = machinesWithId.filter((machine) =>
+          loadsWithId.some((load) => load.MachineId === machine.id),
         );
-        await expect(res.json()).resolves.toMatchObject(resLoads);
+
+        /* for each machine obj, map it to new obj w/ loads [],
+          by iterating through machines and grabbing loads 
+          whose MachineId matches machine id from outer "loop" AND is the "latest" load that has yet to end */
+        let resMachinesWithFinishedLoad = machinesWithLoads.map((machine) => {
+          const filteredLoads = loadsWithId
+            .filter(
+              (load) =>
+                load.MachineId === machine.id &&
+                load.End <= new Date().toISOString(),
+            )
+            .sort((a, b) => new Date(b.End) - new Date(a.End));
+          return {
+            ...machine,
+            loads:
+              filteredLoads.length > 0
+                ? [filteredLoads[0]]
+                : [] /* grab the first available load (latest since it's sorted desc.) or none if it one that has ended does not exist yet for this machine */,
+          };
+        });
+
+        resMachinesWithFinishedLoad = resMachinesWithFinishedLoad.filter(
+          (machineLoadObj) => machineLoadObj.loads.length > 0,
+        );
+
+        await expect(res.json()).resolves.toMatchObject(
+          resMachinesWithFinishedLoad,
+        );
       },
     });
   });
