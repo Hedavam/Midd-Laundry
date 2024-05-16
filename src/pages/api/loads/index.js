@@ -2,6 +2,7 @@
 import { createRouter } from "next-connect";
 import { onError } from "../../../lib/middleware";
 import Machines from "../../../../models/Machines";
+import Rooms from "../../../../models/Rooms";
 
 const router = createRouter();
 
@@ -50,18 +51,22 @@ router.get(async (req, res) => {
     });
 
   latestLoads = latestLoads.map((machine) => ({
-      ...machine,
-      loads: [machine.loads[0]],
-    }));
+    ...machine,
+    loads: [machine.loads[0]],
+  }));
 
-  /* for of instead of forEach, a bit cleaner imo - nvm AirBnB hates for of but i think its nice */
-  Object.values(latestLoads).forEach((machinesObj) =>
-    Object.values(machinesObj).forEach((load) => {
-      const subject = "Your laundry is done!";
-      const output = `<h1>Your laundry is ready to be picked up!</h1>`;
+  const roomIds = latestLoads.map((machine) => machine.RoomId);
+  const rooms = await Rooms.query().findByIds(roomIds);
+
+  /* tried for of instead of forEach, a bit cleaner imo - nvm AirBnB hates for of but i think its nice */
+  latestLoads.forEach((machine) => {
+    const room = rooms.find((roomObj) => roomObj.id === machine.RoomId);
+    const subject = "Your laundry is done!";
+    const output = `<h2>Your laundry is ready to be picked up at ${room.Name} in machine: ${machine.MachineNum}!</h2>`; // TODO: would be cool to specify the room as well
+    machine.loads.forEach((load) => {
       sendEmail(load.Email, subject, output);
-    }),
-  );
+    });
+  });
 
   res.status(200).json(latestLoads);
 });
