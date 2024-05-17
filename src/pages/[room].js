@@ -156,7 +156,12 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Box display="flex" justifyContent="center" data-testid="washer">
+          <Box
+            display="flex"
+            justifyContent="center"
+            flexWrap="wrap"
+            data-testid="washer"
+          >
             {machines
               .filter((machine) => machine.Type === "washer")
               .sort((a, b) => a.MachineNum - b.MachineNum)
@@ -179,7 +184,12 @@ export default function Room({ currentRoom, setCurrentRoom }) {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Box display="flex" justifyContent="center" data-testid="dryer">
+          <Box
+            display="flex"
+            justifyContent="center"
+            flexWrap="wrap"
+            data-testid="dryer"
+          >
             {machines
               .filter((machine) => machine.Type === "dryer")
               .sort((a, b) => a.MachineNum - b.MachineNum)
