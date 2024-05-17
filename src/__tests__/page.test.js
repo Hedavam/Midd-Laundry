@@ -1,17 +1,22 @@
-import { render, fireEvent, screen, within, waitFor } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  screen,
+  within,
+  waitFor,
+} from "@testing-library/react";
+import fetchMock from "fetch-mock";
 import mockRouter from "next-router-mock";
 import { createDynamicRouteParser } from "next-router-mock/dynamic-routes";
 import Rooms from "../pages/rooms";
 import Room from "../pages/[room]";
 import UserForm from "../components/UserForm";
-import fetchMock from "fetch-mock";
 
 // Mock the router
 jest.mock("next/router", () => ({
   ...mockRouter,
   useParser: createDynamicRouteParser(["[room]", "rooms"]),
 }));
-
 
 describe("Front-end Tests", () => {
   describe("Rooms", () => {
@@ -43,44 +48,44 @@ describe("Front-end Tests", () => {
         }
       });
 
-    render(
-      <Rooms
-        rooms={[{ id: 1, name: "forest" }]}
-        setCurrentRoom={setCurrentRoom}
-        favoriteRoom={null}
-        setFavoriteRoom={jest.fn()}
-      />,
-    );
+      render(
+        <Rooms
+          rooms={[{ id: 1, name: "forest" }]}
+          setCurrentRoom={setCurrentRoom}
+          favoriteRoom={null}
+          setFavoriteRoom={jest.fn()}
+        />,
+      );
 
-    const roomButton = await screen.getByText("forest");
-    expect(roomButton).toBeInTheDocument();
+      const roomButton = await screen.getByText("forest");
+      expect(roomButton).toBeInTheDocument();
 
-    fireEvent.click(roomButton);
+      fireEvent.click(roomButton);
 
-    expect(setCurrentRoom).toHaveBeenCalledTimes(1);
-    expect(mockRouter.pathname).toBe("/[room]");
-  });
-});
-
-describe("Room Display", () => {
-  test("Clicking back routes to rooms", async () => {
-    const setCurrentRoom = jest.fn((room) => {
-      if (room) {
-        mockRouter.push(`/[room]`, `/${room}}`);
-      } else {
-        mockRouter.push(`/rooms`);
-      }
+      expect(setCurrentRoom).toHaveBeenCalledTimes(1);
+      expect(mockRouter.pathname).toBe("/[room]");
     });
-
-    render(<Room currentRoom="forest" setCurrentRoom={setCurrentRoom} />);
-
-    const backButton = await screen.getByText("Back to Rooms");
-    expect(backButton).toBeInTheDocument();
-    fireEvent.click(backButton);
-
-    expect(setCurrentRoom).toHaveBeenCalledTimes(1);
-    expect(mockRouter.pathname).toBe("/rooms");
   });
+
+  describe("Room Display", () => {
+    test("Clicking back routes to rooms", async () => {
+      const setCurrentRoom = jest.fn((room) => {
+        if (room) {
+          mockRouter.push(`/[room]`, `/${room}}`);
+        } else {
+          mockRouter.push(`/rooms`);
+        }
+      });
+
+      render(<Room currentRoom="forest" setCurrentRoom={setCurrentRoom} />);
+
+      const backButton = await screen.getByText("Back to Rooms");
+      expect(backButton).toBeInTheDocument();
+      fireEvent.click(backButton);
+
+      expect(setCurrentRoom).toHaveBeenCalledTimes(1);
+      expect(mockRouter.pathname).toBe("/rooms");
+    });
 
     describe("Room API", () => {
       beforeEach(() => {
@@ -210,12 +215,20 @@ describe("Room Display", () => {
           fireEvent.click(machine);
 
           const machineForm = screen.getByRole("textbox", { name: /machine/i });
-          const phoneNumberForm = screen.getByRole("textbox", {name: /phone number/i,});
+          const phoneNumberForm = screen.getByRole("textbox", {
+            name: /phone number/i,
+          });
           const emailForm = screen.getByRole("textbox", { name: /email/i });
-          const durationForm = screen.getByRole("spinbutton", {name: /duration \(minutes\)/i,});
+          const durationForm = screen.getByRole("spinbutton", {
+            name: /duration \(minutes\)/i,
+          });
           const cancelButton = screen.getByRole("button", { name: /cancel/i });
-          const markOutOfOrderButton = screen.getByRole("button", {name: /out of order\?/i,});
-          const loadButton = screen.getByRole("button", {name: /start load/i,});
+          const markOutOfOrderButton = screen.getByRole("button", {
+            name: /out of order\?/i,
+          });
+          const loadButton = screen.getByRole("button", {
+            name: /start load/i,
+          });
 
           expect(machineForm).toBeInTheDocument();
           expect(phoneNumberForm).toBeInTheDocument();
