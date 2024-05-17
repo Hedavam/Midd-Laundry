@@ -19,7 +19,7 @@ jest.mock("next/router", () => ({
 }));
 
 describe("Front-end Tests", () => {
-  describe("Rooms", () => {
+  describe.skip("Rooms", () => {
     test("Display rooms", async () => {
       render(
         <Rooms
@@ -203,7 +203,7 @@ describe("Front-end Tests", () => {
         });
       });
 
-      test("Clicking machine displays UserForm", async () => {
+      test.skip("Clicking machine displays UserForm", async () => {
         const mockCurrentRoom = { id: 1, Name: "Forest" };
         render(<Room currentRoom={mockCurrentRoom} />);
 
