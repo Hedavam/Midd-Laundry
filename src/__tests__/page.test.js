@@ -1,384 +1,384 @@
-// // const fetchMock = require('fetch-mock');
-// import {
-//   render,
-//   fireEvent,
-//   screen,
-//   within,
-//   waitFor,
-// } from "@testing-library/react";
+// const fetchMock = require('fetch-mock');
+import {
+  render,
+  //   fireEvent,
+  screen,
+  //   within,
+  //   waitFor,
+} from "@testing-library/react";
 // import mockRouter from "next-router-mock";
-// import Rooms from "../pages/rooms";
+import Rooms from "../pages/rooms";
 // import Room from "../pages/[room]";
 // import UserForm from "../components/UserForm";
 
-// // Mock the router correctly - separate from fetchMock
+// Mock the router correctly - separate from fetchMock
 // jest.mock("next/router", () => require("next-router-mock"));
 
-// describe.skip("Front-end Tests", () => {
-//   describe("Rooms", () => {
-//     test("Display rooms", async () => {
-//       render(
-//         <Rooms
-//           rooms={[
-//             { id: 1, Name: "atwater" },
-//             { id: 2, Name: "coffrin" },
-//             { id: 3, Name: "forest" },
-//             { id: 4, Name: "hadley" },
-//           ]}
-//           setCurrentRoom={jest.fn()}
-//           favoriteRoom={null}
-//           setFavoriteRoom={jest.fn()}
-//         />
-//       );
+describe("Front-end Tests", () => {
+  describe("Rooms", () => {
+    test("Display rooms", async () => {
+      render(
+        <Rooms
+          rooms={[
+            { id: 1, Name: "atwater" },
+            { id: 2, Name: "coffrin" },
+            { id: 3, Name: "forest" },
+            { id: 4, Name: "hadley" },
+          ]}
+          setCurrentRoom={jest.fn()}
+          favoriteRoom={null}
+          setFavoriteRoom={jest.fn()}
+        />,
+      );
 
-//       const room1 = await screen.getByRole("button", { name: /atwater/i });
-//       expect(room1).toBeInTheDocument();
-//     });
+      const room1 = await screen.getByRole("button", { name: /atwater/i });
+      expect(room1).toBeInTheDocument();
+    });
 
-//     test("Clicking room routes to room", async () => {
-//       const setCurrentRoom = jest.fn((room) => {
-//         if (room) {
-//           mockRouter.push(`/[room]`, `/${room}`);
-//         } else {
-//           mockRouter.push("/rooms");
-//         }
-//       });
+    // test.skip("Clicking room routes to room", async () => {
+    //   const setCurrentRoom = jest.fn((room) => {
+    //     if (room) {
+    //       mockRouter.push(`/[room]`, `/${room}`);
+    //     } else {
+    //       mockRouter.push("/rooms");
+    //     }
+    //   });
 
-//       render(
-//         <Rooms
-//           rooms={[{ id: 1, name: "forest" }]}
-//           setCurrentRoom={setCurrentRoom}
-//           favoriteRoom={null}
-//           setFavoriteRoom={jest.fn()}
-//         />
-//       );
+    //   render(
+    //     <Rooms
+    //       rooms={[{ id: 1, name: "forest" }]}
+    //       setCurrentRoom={setCurrentRoom}
+    //       favoriteRoom={null}
+    //       setFavoriteRoom={jest.fn()}
+    //     />
+    //   );
 
-//       const roomButton = await screen.getByText("forest");
-//       expect(roomButton).toBeInTheDocument();
+    //   const roomButton = await screen.getByText("forest");
+    //   expect(roomButton).toBeInTheDocument();
 
-//       fireEvent.click(roomButton);
+    //   fireEvent.click(roomButton);
 
-//       expect(setCurrentRoom).toHaveBeenCalledTimes(1);
-//       expect(mockRouter.pathname).toBe("/[room]");
-//     });
-//   });
+    //   expect(setCurrentRoom).toHaveBeenCalledTimes(1);
+    //   expect(mockRouter.pathname).toBe("/[room]");
+    // });
+  });
 
-//   describe("Room Display", () => {
-//     beforeEach(() => {
-//       // Reset fetchMock before each test
-//       fetchMock.restore();
+  //   describe.skip("Room Display", () => {
+  //     beforeEach(() => {
+  //       // Reset fetchMock before each test
+  //       //fetchMock.restore();
 
-//       // Configure fetchMock with default responses
-//       fetchMock
-//         .get("path:/api/rooms/1/loads", [
-//           {
-//             id: 1,
-//             RoomId: 1,
-//             MachineNum: 1,
-//             Type: "washer",
-//             outOfOrder: false,
-//             loads: [],
-//           },
-//           {
-//             id: 2,
-//             RoomId: 1,
-//             MachineNum: 2,
-//             Type: "washer",
-//             outOfOrder: false,
-//             loads: [],
-//           },
-//           {
-//             id: 3,
-//             RoomId: 1,
-//             MachineNum: 3,
-//             Type: "washer",
-//             outOfOrder: false,
-//             loads: [],
-//           },
-//           {
-//             id: 4,
-//             RoomId: 1,
-//             MachineNum: 4,
-//             Type: "washer",
-//             outOfOrder: false,
-//             loads: [],
-//           },
-//           {
-//             id: 5,
-//             RoomId: 1,
-//             MachineNum: 1,
-//             Type: "dryer",
-//             outOfOrder: false,
-//             loads: [],
-//           },
-//           {
-//             id: 6,
-//             RoomId: 1,
-//             MachineNum: 2,
-//             Type: "dryer",
-//             outOfOrder: false,
-//             loads: [],
-//           },
-//           {
-//             id: 7,
-//             RoomId: 1,
-//             MachineNum: 3,
-//             Type: "dryer",
-//             outOfOrder: false,
-//             loads: [],
-//           },
-//           {
-//             id: 8,
-//             RoomId: 1,
-//             MachineNum: 4,
-//             Type: "dryer",
-//             outOfOrder: false,
-//             loads: [],
-//           },
-//         ])
-//         .get("path:/api/rooms/1/allLoads", [
-//           {
-//             id: 1,
-//             MachineId: 1,
-//             Duration: 45,
-//             Start: "2023-04-01T10:00:00Z",
-//             End: "2023-04-01T10:45:00Z",
-//             PhoneNum: "123-456-7890",
-//             Email: null,
-//           },
-//           {
-//             id: 2,
-//             MachineId: 1,
-//             Duration: 45,
-//             Start: "2023-04-01T09:00:00Z",
-//             End: "2023-04-01T09:45:00Z",
-//             PhoneNum: null,
-//             Email: "test@test.com",
-//           },
-//         ])
-//         .put("path:/api/machines/1/outOfOrder", { success: true })
-//         .post("path:/api/loads", { success: true });
-//     });
+  //       // Configure fetchMock with default responses
+  //       fetchMock
+  //         .get("path:/api/rooms/1/loads", [
+  //           {
+  //             id: 1,
+  //             RoomId: 1,
+  //             MachineNum: 1,
+  //             Type: "washer",
+  //             outOfOrder: false,
+  //             loads: [],
+  //           },
+  //           {
+  //             id: 2,
+  //             RoomId: 1,
+  //             MachineNum: 2,
+  //             Type: "washer",
+  //             outOfOrder: false,
+  //             loads: [],
+  //           },
+  //           {
+  //             id: 3,
+  //             RoomId: 1,
+  //             MachineNum: 3,
+  //             Type: "washer",
+  //             outOfOrder: false,
+  //             loads: [],
+  //           },
+  //           {
+  //             id: 4,
+  //             RoomId: 1,
+  //             MachineNum: 4,
+  //             Type: "washer",
+  //             outOfOrder: false,
+  //             loads: [],
+  //           },
+  //           {
+  //             id: 5,
+  //             RoomId: 1,
+  //             MachineNum: 1,
+  //             Type: "dryer",
+  //             outOfOrder: false,
+  //             loads: [],
+  //           },
+  //           {
+  //             id: 6,
+  //             RoomId: 1,
+  //             MachineNum: 2,
+  //             Type: "dryer",
+  //             outOfOrder: false,
+  //             loads: [],
+  //           },
+  //           {
+  //             id: 7,
+  //             RoomId: 1,
+  //             MachineNum: 3,
+  //             Type: "dryer",
+  //             outOfOrder: false,
+  //             loads: [],
+  //           },
+  //           {
+  //             id: 8,
+  //             RoomId: 1,
+  //             MachineNum: 4,
+  //             Type: "dryer",
+  //             outOfOrder: false,
+  //             loads: [],
+  //           },
+  //         ])
+  //         .get("path:/api/rooms/1/allLoads", [
+  //           {
+  //             id: 1,
+  //             MachineId: 1,
+  //             Duration: 45,
+  //             Start: "2023-04-01T10:00:00Z",
+  //             End: "2023-04-01T10:45:00Z",
+  //             PhoneNum: "123-456-7890",
+  //             Email: null,
+  //           },
+  //           {
+  //             id: 2,
+  //             MachineId: 1,
+  //             Duration: 45,
+  //             Start: "2023-04-01T09:00:00Z",
+  //             End: "2023-04-01T09:45:00Z",
+  //             PhoneNum: null,
+  //             Email: "test@test.com",
+  //           },
+  //         ])
+  //         .put("path:/api/machines/1/outOfOrder", { success: true })
+  //         .post("path:/api/loads", { success: true });
+  //     });
 
-//     afterEach(() => {
-//       fetchMock.restore();
-//     });
+  //     afterEach(() => {
+  //       //fetchMock.restore();
+  //     });
 
-//     test("Clicking back routes to rooms", async () => {
-//       const setCurrentRoom = jest.fn((room) => {
-//         if (room) {
-//           mockRouter.push(`/[room]`, `/${room}}`);
-//         } else {
-//           mockRouter.push(`/rooms`);
-//         }
-//       });
+  //     test("Clicking back routes to rooms", async () => {
+  //       const setCurrentRoom = jest.fn((room) => {
+  //         if (room) {
+  //           mockRouter.push(`/[room]`, `/${room}}`);
+  //         } else {
+  //           mockRouter.push(`/rooms`);
+  //         }
+  //       });
 
-//       render(<Room currentRoom="forest" setCurrentRoom={setCurrentRoom} />);
+  //       render(<Room currentRoom="forest" setCurrentRoom={setCurrentRoom} />);
 
-//       const backButton = await screen.getByText("Back to Rooms");
-//       expect(backButton).toBeInTheDocument();
-//       fireEvent.click(backButton);
+  //       const backButton = await screen.getByText("Back to Rooms");
+  //       expect(backButton).toBeInTheDocument();
+  //       fireEvent.click(backButton);
 
-//       expect(setCurrentRoom).toHaveBeenCalledTimes(1);
-//       expect(mockRouter.pathname).toBe("/rooms");
-//     });
+  //       expect(setCurrentRoom).toHaveBeenCalledTimes(1);
+  //       expect(mockRouter.pathname).toBe("/rooms");
+  //     });
 
-//     test("Validates machine counts", async () => {
-//       const mockCurrentRoom = { id: 1, Name: "Forest" };
-//       render(<Room currentRoom={mockCurrentRoom} />);
+  //     test("Validates machine counts", async () => {
+  //       const mockCurrentRoom = { id: 1, Name: "Forest" };
+  //       render(<Room currentRoom={mockCurrentRoom} />);
 
-//       await waitFor(() => {
-//         const washersContainer = screen.getByTestId("washer");
-//         const washerNums = washersContainer.querySelectorAll(".MuiBox-root");
-//         expect(washerNums.length).toBe(4);
+  //       await waitFor(() => {
+  //         const washersContainer = screen.getByTestId("washer");
+  //         const washerNums = washersContainer.querySelectorAll(".MuiBox-root");
+  //         expect(washerNums.length).toBe(4);
 
-//         const dryersContainer = screen.getByTestId("dryer");
-//         const dryerNums = dryersContainer.querySelectorAll(".MuiBox-root");
-//         expect(dryerNums.length).toBe(4);
+  //         const dryersContainer = screen.getByTestId("dryer");
+  //         const dryerNums = dryersContainer.querySelectorAll(".MuiBox-root");
+  //         expect(dryerNums.length).toBe(4);
 
-//         const calendar = screen.getByRole("heading", {
-//           name: /most\/least busy times/i,
-//         });
-//         expect(calendar).toBeInTheDocument();
-//       });
-//     });
+  //         const calendar = screen.getByRole("heading", {
+  //           name: /most\/least busy times/i,
+  //         });
+  //         expect(calendar).toBeInTheDocument();
+  //       });
+  //     });
 
-//     test("Clicking machine displays UserForm", async () => {
-//       const mockCurrentRoom = { id: 1, Name: "Forest" };
-//       render(<Room currentRoom={mockCurrentRoom} />);
+  //     test("Clicking machine displays UserForm", async () => {
+  //       const mockCurrentRoom = { id: 1, Name: "Forest" };
+  //       render(<Room currentRoom={mockCurrentRoom} />);
 
-//       await waitFor(() => {
-//         const washers = screen.getByTestId("washer");
-//         const machine = within(washers).getByText(/1/i);
-//         expect(machine).toBeInTheDocument();
+  //       await waitFor(() => {
+  //         const washers = screen.getByTestId("washer");
+  //         const machine = within(washers).getByText(/1/i);
+  //         expect(machine).toBeInTheDocument();
 
-//         fireEvent.click(machine);
+  //         fireEvent.click(machine);
 
-//         const machineForm = screen.getByRole("textbox", { name: /machine/i });
-//         const phoneNumberForm = screen.getByRole("textbox", {
-//           name: /phone number/i,
-//         });
-//         const emailForm = screen.getByRole("textbox", { name: /email/i });
-//         const durationForm = screen.getByRole("spinbutton", {
-//           name: /duration \(minutes\)/i,
-//         });
-//         const cancelButton = screen.getByRole("button", { name: /cancel/i });
-//         const markOutOfOrderButton = screen.getByRole("button", {
-//           name: /out of order\?/i,
-//         });
-//         const loadButton = screen.getByRole("button", {
-//           name: /start load/i,
-//         });
+  //         const machineForm = screen.getByRole("textbox", { name: /machine/i });
+  //         const phoneNumberForm = screen.getByRole("textbox", {
+  //           name: /phone number/i,
+  //         });
+  //         const emailForm = screen.getByRole("textbox", { name: /email/i });
+  //         const durationForm = screen.getByRole("spinbutton", {
+  //           name: /duration \(minutes\)/i,
+  //         });
+  //         const cancelButton = screen.getByRole("button", { name: /cancel/i });
+  //         const markOutOfOrderButton = screen.getByRole("button", {
+  //           name: /out of order\?/i,
+  //         });
+  //         const loadButton = screen.getByRole("button", {
+  //           name: /start load/i,
+  //         });
 
-//         expect(machineForm).toBeInTheDocument();
-//         expect(phoneNumberForm).toBeInTheDocument();
-//         expect(emailForm).toBeInTheDocument();
-//         expect(durationForm).toBeInTheDocument();
-//         expect(cancelButton).toBeInTheDocument();
-//         expect(markOutOfOrderButton).toBeInTheDocument();
-//         expect(loadButton).toBeInTheDocument();
-//       });
-//     });
+  //         expect(machineForm).toBeInTheDocument();
+  //         expect(phoneNumberForm).toBeInTheDocument();
+  //         expect(emailForm).toBeInTheDocument();
+  //         expect(durationForm).toBeInTheDocument();
+  //         expect(cancelButton).toBeInTheDocument();
+  //         expect(markOutOfOrderButton).toBeInTheDocument();
+  //         expect(loadButton).toBeInTheDocument();
+  //       });
+  //     });
 
-//     test("Clicking cancel closes UserForm", async () => {
-//       const mockCurrentRoom = { id: 1, Name: "Forest" };
-//       render(<Room currentRoom={mockCurrentRoom} />);
+  //     test("Clicking cancel closes UserForm", async () => {
+  //       const mockCurrentRoom = { id: 1, Name: "Forest" };
+  //       render(<Room currentRoom={mockCurrentRoom} />);
 
-//       await waitFor(() => {
-//         const washers = screen.getByTestId("washer");
-//         const machine = within(washers).getByText(/1/i);
-//         expect(machine).toBeInTheDocument();
+  //       await waitFor(() => {
+  //         const washers = screen.getByTestId("washer");
+  //         const machine = within(washers).getByText(/1/i);
+  //         expect(machine).toBeInTheDocument();
 
-//         fireEvent.click(machine);
+  //         fireEvent.click(machine);
 
-//         const cancelButton = screen.getByRole("button", { name: /cancel/i });
-//         fireEvent.click(cancelButton);
+  //         const cancelButton = screen.getByRole("button", { name: /cancel/i });
+  //         fireEvent.click(cancelButton);
 
-//         const machineForm = screen.queryByRole("textbox", {
-//           name: /machine/i,
-//         });
-//         expect(machineForm).not.toBeInTheDocument();
-//       });
-//     });
+  //         const machineForm = screen.queryByRole("textbox", {
+  //           name: /machine/i,
+  //         });
+  //         expect(machineForm).not.toBeInTheDocument();
+  //       });
+  //     });
 
-//     test("Clicking mark out of order button marks machine out of order", async () => {
-//       const mockCurrentRoom = { id: 1, Name: "Forest" };
-//       render(<Room currentRoom={mockCurrentRoom} />);
+  //     test("Clicking mark out of order button marks machine out of order", async () => {
+  //       const mockCurrentRoom = { id: 1, Name: "Forest" };
+  //       render(<Room currentRoom={mockCurrentRoom} />);
 
-//       await waitFor(async () => {
-//         const washers = screen.getByTestId("washer");
-//         const machine = within(washers).getByText(/1/i);
-//         expect(machine).toBeInTheDocument();
+  //       await waitFor(async () => {
+  //         const washers = screen.getByTestId("washer");
+  //         const machine = within(washers).getByText(/1/i);
+  //         expect(machine).toBeInTheDocument();
 
-//         fireEvent.click(machine);
+  //         fireEvent.click(machine);
 
-//         const markOutOfOrderButton = screen.getByRole("button", {
-//           name: /mark out of order/i,
-//         });
-//         fireEvent.click(markOutOfOrderButton);
+  //         const markOutOfOrderButton = screen.getByRole("button", {
+  //           name: /mark out of order/i,
+  //         });
+  //         fireEvent.click(markOutOfOrderButton);
 
-//         // Wait for the out of order text to appear
-//         await screen.findByText(/out of order/i);
-//       });
-//     });
+  //         // Wait for the out of order text to appear
+  //         await screen.findByText(/out of order/i);
+  //       });
+  //     });
 
-//     test("Clicking Start Load button closes UserForm", async () => {
-//       const mockCurrentRoom = { id: 1, Name: "Forest" };
-//       render(<Room currentRoom={mockCurrentRoom} />);
+  //     test("Clicking Start Load button closes UserForm", async () => {
+  //       const mockCurrentRoom = { id: 1, Name: "Forest" };
+  //       render(<Room currentRoom={mockCurrentRoom} />);
 
-//       await waitFor(() => {
-//         const washers = screen.getByTestId("washer");
-//         const machine = within(washers).getByText(/1/i);
-//         expect(machine).toBeInTheDocument();
+  //       await waitFor(() => {
+  //         const washers = screen.getByTestId("washer");
+  //         const machine = within(washers).getByText(/1/i);
+  //         expect(machine).toBeInTheDocument();
 
-//         fireEvent.click(machine);
+  //         fireEvent.click(machine);
 
-//         const phoneNumberForm = screen.getByRole("textbox", {
-//           name: /phone number/i,
-//         });
-//         const emailForm = screen.getByRole("textbox", { name: /email/i });
-//         const durationForm = screen.getByRole("spinbutton", {
-//           name: /duration \(minutes\)/i,
-//         });
+  //         const phoneNumberForm = screen.getByRole("textbox", {
+  //           name: /phone number/i,
+  //         });
+  //         const emailForm = screen.getByRole("textbox", { name: /email/i });
+  //         const durationForm = screen.getByRole("spinbutton", {
+  //           name: /duration \(minutes\)/i,
+  //         });
 
-//         fireEvent.change(phoneNumberForm, {
-//           target: { value: "1234567890" },
-//         });
-//         fireEvent.change(emailForm, {
-//           target: { value: "JohnDoe@email.com" },
-//         });
-//         fireEvent.change(durationForm, { target: { value: 30 } });
+  //         fireEvent.change(phoneNumberForm, {
+  //           target: { value: "1234567890" },
+  //         });
+  //         fireEvent.change(emailForm, {
+  //           target: { value: "JohnDoe@email.com" },
+  //         });
+  //         fireEvent.change(durationForm, { target: { value: 30 } });
 
-//         const loadButton = screen.getByRole("button", {
-//           name: /start load/i,
-//         });
-//         fireEvent.click(loadButton);
+  //         const loadButton = screen.getByRole("button", {
+  //           name: /start load/i,
+  //         });
+  //         fireEvent.click(loadButton);
 
-//         const machineForm = screen.queryByRole("textbox", {
-//           name: /machine/i,
-//         });
-//         expect(machineForm).not.toBeInTheDocument();
-//       });
-//     });
+  //         const machineForm = screen.queryByRole("textbox", {
+  //           name: /machine/i,
+  //         });
+  //         expect(machineForm).not.toBeInTheDocument();
+  //       });
+  //     });
 
-//     describe("UserForm", () => {
-//       test("Start Load button is disabled when form is empty", async () => {
-//         render(
-//           <UserForm
-//             machineId={1}
-//             machineNum={1}
-//             machineType="washer"
-//             outOfOrder={false}
-//             inUse={false}
-//             onClose={jest.fn()}
-//             onSubmit={jest.fn()}
-//           />
-//         );
+  //     describe.skip("UserForm", () => {
+  //       test("Start Load button is disabled when form is empty", async () => {
+  //         render(
+  //           <UserForm
+  //             machineId={1}
+  //             machineNum={1}
+  //             machineType="washer"
+  //             outOfOrder={false}
+  //             inUse={false}
+  //             onClose={jest.fn()}
+  //             onSubmit={jest.fn()}
+  //           />
+  //         );
 
-//         const loadButton = screen.getByRole("button", { name: /start load/i });
-//         expect(loadButton).toBeDisabled();
-//       });
+  //         const loadButton = screen.getByRole("button", { name: /start load/i });
+  //         expect(loadButton).toBeDisabled();
+  //       });
 
-//       test("Starting loading updates machine status", () => {
-//         const mockOnLoad = jest.fn();
+  //       test("Starting loading updates machine status", () => {
+  //         const mockOnLoad = jest.fn();
 
-//         render(
-//           <UserForm
-//             id={1}
-//             RoomId={1}
-//             machineNum={1}
-//             Type="washer"
-//             OutOfOrder={false}
-//             inUse={false}
-//             onClose={() => {}}
-//             onSubmit={mockOnLoad}
-//           />
-//         );
+  //         render(
+  //           <UserForm
+  //             id={1}
+  //             RoomId={1}
+  //             machineNum={1}
+  //             Type="washer"
+  //             OutOfOrder={false}
+  //             inUse={false}
+  //             onClose={() => {}}
+  //             onSubmit={mockOnLoad}
+  //           />
+  //         );
 
-//         fireEvent.change(screen.getByLabelText(/Phone Number/i), {
-//           target: { value: "1234567890" },
-//         });
+  //         fireEvent.change(screen.getByLabelText(/Phone Number/i), {
+  //           target: { value: "1234567890" },
+  //         });
 
-//         fireEvent.change(screen.getByLabelText(/Email/i), {
-//           target: { value: "test@example.com" },
-//         });
+  //         fireEvent.change(screen.getByLabelText(/Email/i), {
+  //           target: { value: "test@example.com" },
+  //         });
 
-//         fireEvent.change(screen.getByLabelText(/Duration \(minutes\)/i), {
-//           target: { value: "30" },
-//         });
+  //         fireEvent.change(screen.getByLabelText(/Duration \(minutes\)/i), {
+  //           target: { value: "30" },
+  //         });
 
-//         fireEvent.click(screen.getByRole("button", { name: /start load/i }));
+  //         fireEvent.click(screen.getByRole("button", { name: /start load/i }));
 
-//         expect(mockOnLoad).toHaveBeenCalledWith({
-//           machineId: 1,
-//           machineNum: 1,
-//           machineType: "washer",
-//           phoneNumber: "1234567890",
-//           email: "test@example.com",
-//           duration: "30",
-//           outOfOrder: false,
-//         });
-//       });
-//     });
-//   });
-// });
+  //         expect(mockOnLoad).toHaveBeenCalledWith({
+  //           machineId: 1,
+  //           machineNum: 1,
+  //           machineType: "washer",
+  //           phoneNumber: "1234567890",
+  //           email: "test@example.com",
+  //           duration: "30",
+  //           outOfOrder: false,
+  //         });
+  //       });
+  //     });
+  //   });
+});
