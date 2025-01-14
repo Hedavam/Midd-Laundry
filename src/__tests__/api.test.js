@@ -30,7 +30,7 @@ import latestLoadsEndpoint from "../pages/api/loads";
 /* TODO: Try diff room, machine, and machine that doesn't exist */
 
 /* Enabling Testing for Database */
-describe.skip("End-to-end testing", () => {
+describe("End-to-end testing", () => {
   beforeAll(
     () =>
       // Ensure test database is initialized before an tests
@@ -271,6 +271,7 @@ describe.skip("End-to-end testing", () => {
     });
   });
 
+  // TODO:hmmm... not working rn
   test("PUT /api/loads/[id] should edit a machine's latest load", async () => {
     const updatedLoad = {
       id: 4,

@@ -5,7 +5,8 @@
     "Start": "2024-04-30T00:14:00.000Z",
     "End": "2024-05-01T00:14:00.000Z",
     "PhoneNum": "7869555845",
-    "Email": null
+    "Email": null,
+    "Notified": true
   },
   {
     "MachineId": 2,
@@ -13,7 +14,8 @@
     "Start": "2024-04-30T00:14:00.000Z",
     "End": "2024-05-22T00:14:00.000Z",
     "PhoneNum": null,
-    "Email": "negativezero@gmail.com"
+    "Email": "negativezero@gmail.com",
+    "Notified": true
   },
   {
     "MachineId": 3,
@@ -21,7 +23,8 @@
     "Start": "2024-04-30T00:14:00.000Z",
     "End": "2024-05-07T00:14:00.000Z",
     "PhoneNum": null,
-    "Email": "hello@gmail.com"
+    "Email": "hello@gmail.com",
+    "Notified": true
   },
   {
     "MachineId": 3,
@@ -29,7 +32,8 @@
     "Start": "2024-04-30T00:14:00.000Z",
     "End": "2024-05-18T00:14:00.000Z",
     "PhoneNum": "786",
-    "Email": "bye@gmail.com"
+    "Email": "bye@gmail.com",
+    "Notified": true
   },
   {
     "MachineId": 1,
@@ -37,7 +41,8 @@
     "Start": "2024-04-30T00:14:00.000Z",
     "End": "2024-05-23T00:14:00.000Z",
     "PhoneNum": null,
-    "Email": "byeee@gmail.com"
+    "Email": "byeee@gmail.com",
+    "Notified": true
   },
   {
     "MachineId": 3,
@@ -45,6 +50,7 @@
     "Start": "2024-04-30T00:14:00.000Z",
     "End": "2024-05-08T00:14:00.000Z",
     "PhoneNum": null,
-    "Email": "byeee@gmail.com"
+    "Email": "byeee@gmail.com",
+    "Notified": true
   }
 ]

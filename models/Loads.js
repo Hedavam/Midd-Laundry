@@ -27,18 +27,8 @@ export default class Loads extends BaseModel {
         End: { type: "string", format: "date-time" },
         PhoneNum: { type: ["string", "null"] },
         Email: { type: ["string", "null"] },
+        Notified: { type: "boolean", default: false },
       },
     };
   }
-
-  // static relationMappings = {
-  //   machines: {
-  //     relation: Model.BelongsToOneRelation,
-  //     modelClass: Machines,
-  //     join: {
-  //       from: "Load.MachineId",
-  //       to: "Machine.id",
-  //     },
-  //   },
-  // };
 }

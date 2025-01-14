@@ -18,6 +18,7 @@ exports.up = function (knex) {
     table.dateTime("End");
     table.string("PhoneNum");
     table.string("Email");
+    table.boolean("Notified").notNullable().defaultTo(false);
   });
 };
 
