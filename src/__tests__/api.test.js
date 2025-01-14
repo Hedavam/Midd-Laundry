@@ -191,7 +191,8 @@ describe("End-to-end testing", () => {
             .filter(
               (load) =>
                 load.MachineId === machine.id &&
-                load.End <= new Date().toISOString(),
+                load.End <= new Date().toISOString() &&
+                load.Notified === false,
             )
             .sort((a, b) => new Date(b.End) - new Date(a.End));
           return {
@@ -271,13 +272,13 @@ describe("End-to-end testing", () => {
     });
   });
 
-  // TODO:hmmm... not working rn
   test("PUT /api/loads/[id] should edit a machine's latest load", async () => {
     const updatedLoad = {
       id: 4,
       ...loads[3],
       Duration: 35,
-    }; /* Load at index 3 has id 4 */
+      Email: "hye@gmail.com",
+    }; /* Load at index 3 has id 4 (it's the 4th load) */
     await testApiHandler({
       rejectOnHandlerError: true,
       pagesHandler: updateLoadEndpoint,

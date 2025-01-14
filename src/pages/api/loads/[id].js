@@ -10,7 +10,7 @@ import Loads from "../../../../models/Loads";
 
 const router = createRouter();
 
-/* PUT method -> will update a load's info in case user finished load before duration + buffer or they mess up! */
+/* PUT method -> will update a load's info in case user finished load before duration + buffer or they mess up info set up! */
 router.put(async (req, res) => {
   const { id, ...updatedLoad } = req.body;
   // req.query.id is a string, and so needs to be converted to an integer before comparison
@@ -22,8 +22,10 @@ router.put(async (req, res) => {
   }
   // Update Database
   const load = await Loads.query()
-    .where("MachineId", req.body.MachineId) // the body is the object we're feeding in, so we extract machineId
-    .findOne("End", ">", new Date().toISOString());
+    .where("id", id)
+    .andWhere("MachineId", req.body.MachineId) // the body is the object we're feeding in, so we extract machineId
+    .andWhere("End", ">", new Date().toISOString())
+    .first();
 
   if (load) {
     const latestLoad = await load.$query().updateAndFetch(updatedLoad);
